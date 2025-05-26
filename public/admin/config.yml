@@ -1,6 +1,7 @@
 backend:
   name: git-gateway
-  branch: main # Ganti jika repositori kamu menggunakan branch selain main
+  repo: riofauzi708/riofauzi708.github.io
+  branch: main 
 
 media_folder: "public/images/uploads" # Tempat menyimpan file di repo
 public_folder: "/images/uploads"      # Path publik untuk mengakses file dari web
