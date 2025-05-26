@@ -1,0 +1,21 @@
+backend:
+  name: git-gateway
+  branch: main # Ganti jika repositori kamu menggunakan branch selain main
+
+media_folder: "public/images/uploads" # Tempat menyimpan file di repo
+public_folder: "/images/uploads"      # Path publik untuk mengakses file dari web
+
+collections:
+  - name: "blog" # Digunakan di URL: /admin/collections/blog
+    label: "Blog" # Label di UI admin
+    folder: "src/content/blog" # Folder tempat file markdown disimpan
+    extension: "md" # Ekstensi file markdown
+    format: "frontmatter" # Format metadata di dalam markdown
+    create: true # Izinkan buat post baru
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Nama file otomatis
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "string" }
+      - { label: "Publish Date", name: "pubDate", widget: "datetime" }
+      - { label: "Hero Image", name: "heroImage", widget: "image" }
+      - { label: "Body", name: "body", widget: "markdown" }
