@@ -1,22 +1,39 @@
 backend:
   name: git-gateway
   repo: riofauzi708/riofauzi708.github.io
-  branch: main 
+  branch: main
 
-media_folder: "public/images/uploads" # Tempat menyimpan file di repo
-public_folder: "/images/uploads"      # Path publik untuk mengakses file dari web
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
 
 collections:
-  - name: "blog" # Digunakan di URL: /admin/collections/blog
-    label: "Blog" # Label di UI admin
-    folder: "src/content/blog" # Folder tempat file markdown disimpan
-    extension: "md" # Ekstensi file markdown
-    format: "frontmatter" # Format metadata di dalam markdown
-    create: true # Izinkan buat post baru
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Nama file otomatis
+  - name: "blog"
+    label: "Blog"
+    folder: "src/content/blog"
+    extension: "md"
+    format: "frontmatter"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Description", name: "description", widget: "string" }
       - { label: "Publish Date", name: "pubDate", widget: "datetime" }
       - { label: "Hero Image", name: "heroImage", widget: "image" }
       - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "projects"
+    label: "Projects"
+    folder: "src/content/projects"
+    extension: "md"
+    format: "frontmatter"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "string" }
+      - { label: "Publish Date", name: "pubDate", widget: "datetime" }
+      - { label: "Hero Image", name: "heroImage", widget: "image" }
+      - { label: "Secondary Image", name: "secondImage", widget: "image", required: false }
+      - { label: "Source URL", name: "sourceUrl", widget: "string", required: false }
+      - { label: "Body", name: "body", widget: "markdown" }
+

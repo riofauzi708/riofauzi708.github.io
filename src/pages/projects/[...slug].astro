@@ -1,0 +1,25 @@
+---
+import { getCollection, render } from "astro:content";
+import ProjectPost from "../../layouts/ProjectPost.astro";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects");
+  return projects.map((project) => ({
+    params: { slug: project.id }, // project.id biasanya tanpa ekstensi .md
+  }));
+}
+
+const { slug } = Astro.params;
+const projects = await getCollection("projects");
+const project = projects.find((p) => p.id === slug);
+
+if (!project) {
+  throw new Error(`Project not found: ${slug}`);
+}
+
+const { Content } = await render(project);
+---
+
+<ProjectPost {...project.data}>
+  <Content />
+</ProjectPost>

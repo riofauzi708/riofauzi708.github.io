@@ -1,0 +1,121 @@
+---
+import type { CollectionEntry } from "astro:content";
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+type Props = CollectionEntry<"projects">["data"];
+
+const { title, description, pubDate, heroImage, secondImage, sourceUrl } =
+  Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description} />
+    <style>
+      main {
+        width: 100%;
+        margin: 0;
+      }
+
+      .hero-image,
+      .second-image {
+        width: 100%;
+        margin-bottom: 1.5rem;
+      }
+
+      .hero-image img,
+      .second-image img {
+        width: 100%;
+        height: auto;
+        border-radius: 12px;
+        box-shadow: var(--box-shadow);
+        object-fit: cover;
+        display: block;
+      }
+
+      .prose {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 1em;
+        color: rgb(var(--gray-dark));
+      }
+
+      .title {
+        margin-bottom: 1em;
+        padding: 1em 0;
+        text-align: center;
+        line-height: 1;
+      }
+
+      .title h1 {
+        margin: 0 0 0.5em 0;
+      }
+
+      .date {
+        color: rgb(var(--gray));
+        font-size: 0.9rem;
+      }
+
+      .source-link {
+        margin-top: 1.5rem;
+      }
+
+      @media (max-width: 768px) {
+        .hero-image img,
+        .second-image img {
+          border-radius: 0;
+        }
+
+        .prose {
+          padding: 1rem 1em;
+        }
+
+        .title h1 {
+          font-size: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <Header />
+    <main>
+      <article>
+        <div class="hero-image">
+          {heroImage && <img src={heroImage} alt="Hero Image" />}
+        </div>
+
+        <div class="prose">
+          <div class="title">
+            <h1>{title}</h1>
+            <p>{description}</p>
+            <hr />
+          </div>
+
+          <slot />
+
+          {
+            secondImage && (
+              <div class="second-image">
+                <img src={secondImage} alt="Screenshot / Secondary View" />
+              </div>
+            )
+          }
+
+          {
+            sourceUrl && (
+              <div class="source-link">
+                <a href={sourceUrl} target="_blank" rel="noopener noreferrer">
+                  🔗 View Source Here
+                </a>
+              </div>
+            )
+          }
+        </div>
+      </article>
+    </main>
+    <Footer />
+  </body>
+</html>
