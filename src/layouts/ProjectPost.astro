@@ -6,8 +6,16 @@ import Footer from "../components/Footer.astro";
 
 type Props = CollectionEntry<"projects">["data"];
 
-const { title, description, pubDate, heroImage, secondImage, sourceUrl } =
-  Astro.props;
+const {
+  title,
+  description,
+  pubDate,
+  heroImage,
+  projectType,
+  techStack,
+  liveUrl,
+  sourceUrl,
+} = Astro.props;
 ---
 
 <html lang="en">
@@ -16,64 +24,135 @@ const { title, description, pubDate, heroImage, secondImage, sourceUrl } =
     <style>
       main {
         width: 100%;
-        margin: 0;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+        max-width: 1000px;
       }
 
-      .hero-image,
-      .second-image {
-        width: 100%;
-        margin-bottom: 1.5rem;
+      .hero-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        align-items: flex-start;
       }
 
-      .hero-image img,
-      .second-image img {
+      .hero-image {
+        flex: 1 1 350px;
+        max-width: 420px;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .hero-image img {
         width: 100%;
         height: auto;
-        border-radius: 12px;
-        box-shadow: var(--box-shadow);
         object-fit: cover;
         display: block;
+        transition: transform 0.3s ease;
       }
 
-      .prose {
-        max-width: 720px;
-        margin: 0 auto;
-        padding: 1em;
-        color: rgb(var(--gray-dark));
+      .hero-image img:hover {
+        transform: scale(1.03);
       }
 
-      .title {
-        margin-bottom: 1em;
-        padding: 1em 0;
-        text-align: center;
-        line-height: 1;
+      .project-details {
+        flex: 1 1 300px;
+        min-width: 280px;
       }
 
       .title h1 {
-        margin: 0 0 0.5em 0;
+        margin: 0 0 0.5rem;
+        font-size: 2rem;
       }
 
-      .date {
-        color: rgb(var(--gray));
+      .description {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+        color: #333;
+      }
+
+      .meta {
         font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 1.5rem;
       }
 
-      .source-link {
+      .meta > div {
+        margin-bottom: 0.6rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+
+      .tech-stack {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .tech-badge {
+        background-color: #3b82f6;
+        color: white;
+        padding: 0.25em 0.7em;
+        border-radius: 9999px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        user-select: none;
+        cursor: default;
+        transition: background 0.2s ease;
+      }
+
+      .tech-badge:hover {
+        background-color: #2563eb;
+      }
+
+      .project-type {
+        background-color: #eef2ff;
+        color: #4338ca;
+        padding: 0.3em 0.8em;
+        border-radius: 9999px;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4em;
+      }
+
+      .external-links {
+        display: flex;
+        gap: 1rem;
         margin-top: 1.5rem;
       }
 
+      .external-links a {
+        text-decoration: none;
+        border: 1.5px solid #3b82f6;
+        color: #3b82f6;
+        padding: 0.5em 1em;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        transition: all 0.2s ease;
+      }
+
+      .external-links a:hover {
+        background-color: #3b82f6;
+        color: white;
+      }
+
       @media (max-width: 768px) {
-        .hero-image img,
-        .second-image img {
-          border-radius: 0;
+        .hero-container {
+          flex-direction: column;
         }
 
-        .prose {
-          padding: 1rem 1em;
+        .hero-image,
+        .project-details {
+          max-width: 100%;
         }
 
         .title h1 {
-          font-size: 1.5rem;
+          font-size: 1.6rem;
         }
       }
     </style>
@@ -83,37 +162,68 @@ const { title, description, pubDate, heroImage, secondImage, sourceUrl } =
     <Header />
     <main>
       <article>
-        <div class="hero-image">
-          {heroImage && <img src={heroImage} alt="Hero Image" />}
-        </div>
-
-        <div class="prose">
-          <div class="title">
+        <div class="hero-container">
+          <div class="hero-image">
+            {
+              heroImage && (
+                <img src={heroImage} alt={`Thumbnail for ${title}`} />
+              )
+            }
+          </div>
+          <div class="project-details">
             <h1>{title}</h1>
             <p>{description}</p>
-            <hr />
+
+            <div class="meta">
+              {
+                pubDate && (
+                  <div>
+                    📅{" "}
+                    {pubDate instanceof Date
+                      ? pubDate.toLocaleDateString()
+                      : new Date(pubDate).toLocaleDateString()}
+                  </div>
+                )
+              }
+
+              <div class="tech-stack">
+                {
+                  techStack &&
+                    techStack.map((tech) => (
+                      <span class="tech-badge">{tech}</span>
+                    ))
+                }
+              </div>
+
+              <div class="project-type">
+                {projectType === "Personal" ? "👤 Personal" : "👥 Team"}
+              </div>
+
+              <div class="external-links" style="margin-top: 1rem;">
+                {
+                  liveUrl && (
+                    <a href={liveUrl} target="_blank" rel="noopener noreferrer">
+                      🌐 Live Site
+                    </a>
+                  )
+                }
+                {
+                  sourceUrl && (
+                    <a
+                      href={sourceUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      💻 Source Code
+                    </a>
+                  )
+                }
+              </div>
+            </div>
           </div>
-
-          <slot />
-
-          {
-            secondImage && (
-              <div class="second-image">
-                <img src={secondImage} alt="Screenshot / Secondary View" />
-              </div>
-            )
-          }
-
-          {
-            sourceUrl && (
-              <div class="source-link">
-                <a href={sourceUrl} target="_blank" rel="noopener noreferrer">
-                  🔗 View Source Here
-                </a>
-              </div>
-            )
-          }
         </div>
+
+        <slot />
       </article>
     </main>
     <Footer />

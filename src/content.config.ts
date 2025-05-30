@@ -20,6 +20,9 @@ const projects = defineCollection({
     body: z.string().optional(),
 	pubDate: z.coerce.date().optional(),
 	sourceUrl: z.string().optional(),
+  projectType: z.enum(["Personal", "Team"]).optional(),
+    techStack: z.array(z.string()).optional(),
+    liveUrl: z.string().optional(),
   }),
 });
 

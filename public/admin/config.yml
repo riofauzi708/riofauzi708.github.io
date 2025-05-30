@@ -30,10 +30,31 @@ collections:
     slug: "{{slug}}"
     fields:
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "Description", name: "description", widget: "string" }
+      - { label: "Short Description", name: "description", widget: "text" }
       - { label: "Publish Date", name: "pubDate", widget: "datetime" }
-      - { label: "Hero Image", name: "heroImage", widget: "image" }
-      - { label: "Secondary Image", name: "secondImage", widget: "image", required: false }
-      - { label: "Source URL", name: "sourceUrl", widget: "string", required: false }
-      - { label: "Body", name: "body", widget: "markdown" }
+      - { label: "Thumbnail Image", name: "heroImage", widget: "image" }
 
+      - label: "Project Type"
+        name: "projectType"
+        widget: "select"
+        options: ["Personal", "Team"]
+        default: "Personal"
+
+      - label: "Tech Stack"
+        name: "techStack"
+        widget: "list"
+        field: { label: "Tech", name: "tech", widget: "string" }
+
+      - label: "Live URL"
+        name: "liveUrl"
+        widget: "string"
+        required: false
+
+      - label: "Source Code"
+        name: "sourceUrl"
+        widget: "string"
+        required: false
+
+      - label: "Body"
+        name: "body"
+        widget: "markdown"
