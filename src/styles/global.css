@@ -54,6 +54,34 @@ main {
 	padding: 3em 1em;
 }
 
+.hero-container {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	gap: 2rem;
+	margin-bottom: 2rem;
+	flex-wrap: wrap;
+}
+
+.hero-image {
+	flex: 1 1 55%;
+	max-width: 100%;
+	/* biarkan fleksibel */
+}
+
+.hero-image img {
+	width: 100%;
+	height: auto;
+	object-fit: cover;
+	border-radius: 12px;
+	box-shadow: var(--box-shadow);
+}
+
+.project-details {
+	flex: 1 1 45%;
+}
+
+
 h1,
 h2,
 h3,
