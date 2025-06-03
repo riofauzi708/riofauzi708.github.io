@@ -57,6 +57,7 @@ body {
 }
 
 main {
+	flex: 1;
 	width: 720px;
 	max-width: 100%;
 	margin: 2.5rem auto 4rem auto;
@@ -290,5 +291,11 @@ input {
 	main {
 		width: 720px;
 		padding: 3rem 2rem;
+	}
+}
+
+@media (min-width: 1600px) {
+	footer>div {
+		max-width: 1400px;
 	}
 }
