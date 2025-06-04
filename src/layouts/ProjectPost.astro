@@ -12,7 +12,7 @@ const {
   pubDate,
   heroImage,
   projectType,
-  techStack,
+  techStack = [],
   liveUrl,
   sourceUrl,
 } = Astro.props;
@@ -36,8 +36,6 @@ const {
       }
 
       main {
-        max-width: 1000px;
-        margin: auto;
         padding: 2rem 1.5rem;
       }
 
@@ -46,17 +44,16 @@ const {
         flex-wrap: wrap;
         gap: 2rem;
         align-items: flex-start;
+        justify-content: center;
         animation: fadeIn 0.7s ease-in;
       }
 
       .hero-image {
-        flex: 1 1 350px;
-        max-width: 420px;
+        flex: 1 1 50%;
+        max-width: 600px;
         border-radius: 16px;
         overflow: hidden;
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
-        transform: scale(1);
-        transition: transform 0.3s ease;
       }
 
       .hero-image img {
@@ -71,19 +68,19 @@ const {
       }
 
       .project-details {
-        flex: 1 1 300px;
-        min-width: 280px;
+        flex: 1 1 40%;
+        max-width: 540px;
         animation: slideUp 0.6s ease-in;
       }
 
       .project-details h1 {
-        font-size: 2.2rem;
-        margin-bottom: 0.5rem;
+        font-size: 2rem;
+        margin-bottom: 0.75rem;
         line-height: 1.2;
       }
 
       .project-details p {
-        font-size: 1.1rem;
+        font-size: 1.05rem;
         color: #4b5563;
         margin-bottom: 1.5rem;
       }
@@ -129,6 +126,7 @@ const {
         display: flex;
         gap: 1rem;
         margin-top: 1.5rem;
+        flex-wrap: wrap;
       }
 
       .external-links a {
@@ -153,7 +151,7 @@ const {
         }
 
         .project-details h1 {
-          font-size: 1.7rem;
+          font-size: 1.6rem;
         }
 
         .external-links {
@@ -193,13 +191,13 @@ const {
     <main>
       <article>
         <div class="hero-container">
-          <div class="hero-image">
-            {
-              heroImage && (
+          {
+            heroImage && (
+              <div class="hero-image">
                 <img src={heroImage} alt={`Thumbnail for ${title}`} />
-              )
-            }
-          </div>
+              </div>
+            )
+          }
           <div class="project-details">
             <h1>{title}</h1>
             <p>{description}</p>
@@ -216,14 +214,15 @@ const {
                 )
               }
 
-              <div class="tech-stack">
-                {
-                  techStack &&
-                    techStack.map((tech) => (
+              {
+                techStack.length > 0 && (
+                  <div class="tech-stack">
+                    {techStack.map((tech) => (
                       <span class="tech-badge">{tech}</span>
-                    ))
-                }
-              </div>
+                    ))}
+                  </div>
+                )
+              }
 
               <div class="project-type">
                 {
@@ -256,7 +255,6 @@ const {
             </div>
           </div>
         </div>
-
         <slot />
       </article>
     </main>

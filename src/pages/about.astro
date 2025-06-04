@@ -1,72 +1,218 @@
 ---
-import Layout from "../layouts/BlogPost.astro";
+import Layout from "../layouts/AboutLayout.astro";
 ---
 
 <Layout
   title="About Me"
-  description="Lorem ipsum dolor sit amet"
-  pubDate={new Date("August 08 2021")}
+  description="Profil profesional Rio Fauzi - Web Developer & SEO Specialist"
+  pubDate={new Date("2025-06-01")}
   heroImage="/images/uploads/rio-fauzi.jpg"
 >
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua. Vitae ultricies leo
-    integer malesuada nunc vel risus commodo viverra. Adipiscing enim eu turpis
-    egestas pretium. Euismod elementum nisi quis eleifend quam adipiscing. In
-    hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat.
-    Netus et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu
-    non diam phasellus vestibulum lorem. Varius sit amet mattis vulputate enim.
-    Habitasse platea dictumst quisque sagittis. Integer quis auctor elit sed
-    vulputate mi. Dictumst quisque sagittis purus sit amet.
-  </p>
+  <section class="about-page">
+    <!-- Header -->
+    <header class="about-header">
+      <img
+        src="/images/uploads/rio-fauzi.jpg"
+        alt="Rio Fauzi"
+        class="profile-img"
+      />
+      <div>
+        <h1>Rio Fauzi</h1>
+        <p>Web Developer · IT Generalist · SEO Specialist</p>
+        <div class="cta-buttons">
+          <a href="/files/CV-RioFauzi.pdf" class="btn" download
+            >📄 Download CV</a
+          >
+          <a href="mailto:rio@example.com" class="btn btn-secondary"
+            >✉️ Hire Me</a
+          >
+        </div>
+      </div>
+    </header>
 
-  <p>
-    Morbi tristique senectus et netus. Id semper risus in hendrerit gravida
-    rutrum quisque non tellus. Habitasse platea dictumst quisque sagittis purus
-    sit amet. Tellus molestie nunc non blandit massa. Cursus vitae congue mauris
-    rhoncus. Accumsan tortor posuere ac ut. Fringilla urna porttitor rhoncus
-    dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis
-    massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius
-    morbi enim nunc. Bibendum neque egestas congue quisque egestas diam. Cras
-    ornare arcu dui vivamus arcu felis bibendum. Dignissim suspendisse in est
-    ante in nibh mauris. Sed tempus urna et pharetra pharetra massa massa
-    ultricies mi.
-  </p>
+    <!-- Profil Singkat -->
+    <section>
+      <h2>Profil Singkat</h2>
+      <p>
+        Saya adalah seorang web developer dengan latar belakang pendidikan IT
+        dan pengalaman mengembangkan berbagai proyek menggunakan Laravel, React,
+        Next.js, serta memiliki pemahaman kuat di bidang SEO dan UI/UX. Saat ini
+        saya sedang aktif mengembangkan Sistem Informasi dan aplikasi web dengan
+        fokus pada kecepatan dan performa.
+      </p>
+    </section>
 
-  <p>
-    Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque.
-    Diam sit amet nisl suscipit. Lacus viverra vitae congue eu consequat ac
-    felis donec. Egestas integer eget aliquet nibh praesent tristique magna sit
-    amet. Eget magna fermentum iaculis eu non diam. In vitae turpis massa sed
-    elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem
-    dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra.
-    Posuere ac ut consequat semper viverra nam. Laoreet suspendisse interdum
-    consectetur libero id faucibus. Diam phasellus vestibulum lorem sed risus
-    ultricies tristique. Rhoncus dolor purus non enim praesent elementum
-    facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed
-    risus pretium quam vulputate. Viverra suspendisse potenti nullam ac tortor
-    vitae purus faucibus ornare. Fringilla urna porttitor rhoncus dolor purus
-    non. Amet dictum sit amet justo donec enim.
-  </p>
+    <!-- Keahlian -->
+    <section>
+      <h2>Keahlian Teknis</h2>
+      <ul class="skills-list">
+        <li>💻 HTML, CSS, JavaScript, TypeScript</li>
+        <li>⚙️ Laravel, Node.js, Express, NestJS</li>
+        <li>🧠 React, Next.js, Mantine UI, Chakra UI</li>
+        <li>🗃️ PostgreSQL, MySQL, Prisma ORM</li>
+        <li>📈 SEO Optimization, Web Performance</li>
+        <li>🛠️ Git, Github, CI/CD, REST API</li>
+      </ul>
+    </section>
 
-  <p>
-    Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac
-    ut consequat semper viverra. Tellus mauris a diam maecenas sed enim ut sem
-    viverra. Venenatis urna cursus eget nunc scelerisque viverra mauris in. Arcu
-    ac tortor dignissim convallis aenean et tortor at. Curabitur gravida arcu ac
-    tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus
-    pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim
-    sit amet. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam.
-    Id donec ultrices tincidunt arcu. Id cursus metus aliquam eleifend mi.
-  </p>
+    <!-- Pengalaman Proyek -->
+    <section>
+      <h2>Pengalaman Proyek</h2>
+      <ul class="project-list">
+        <li>
+          <strong>Circle App</strong> – Twitter-like platform (React, Node.js, Prisma)
+        </li>
+        <li>
+          <strong>Lakoe App</strong> – E-commerce (React, NestJS, Material UI)
+        </li>
+        <li>
+          <strong>Sistem Informasi Klinik</strong> – Yii1 & PostgreSQL
+        </li>
+        <li>
+          <strong>Sistem Manajemen Pegawai</strong> – Laravel + Mantine UI
+        </li>
+      </ul>
+    </section>
 
-  <p>
-    Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus
-    imperdiet. Id porta nibh venenatis cras sed felis eget velit. Ipsum a arcu
-    cursus vitae. Facilisis magna etiam tempor orci eu lobortis elementum.
-    Tincidunt dui ut ornare lectus sit. Quisque non tellus orci ac. Blandit
-    libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed
-    pulvinar proin gravida. Egestas integer eget aliquet nibh praesent tristique
-    magna.
-  </p>
+    <!-- Pendidikan -->
+    <section>
+      <h2>Pendidikan</h2>
+      <p>
+        Mahasiswa aktif di bidang Teknologi Informasi, dengan pengalaman
+        bootcamp intensif selama 7 bulan serta pembelajaran mandiri sejak 2023.
+      </p>
+    </section>
+
+    <!-- Kontak -->
+    <section>
+      <h2>Kontak & Sosial</h2>
+      <ul class="contact-list">
+        <li>Email: <a href="mailto:rio@example.com">rio@example.com</a></li>
+        <li>
+          GitHub: <a href="https://github.com/riofauzi708"
+            >github.com/riofauzi708</a
+          >
+        </li>
+        <li>
+          LinkedIn: <a href="https://linkedin.com/in/riofauzi"
+            >linkedin.com/in/riofauzi</a
+          >
+        </li>
+        <li>
+          Website: <a href="https://rio-first-web.netlify.app"
+            >rio-first-web.netlify.app</a
+          >
+        </li>
+      </ul>
+    </section>
+  </section>
+
+  <style>
+    .about-page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+      font-family: "Segoe UI", sans-serif;
+      color: #333;
+
+      /* MODIFIED: Responsive font size */
+      font-size: clamp(0.95rem, 2vw, 1.125rem);
+      line-height: 1.75;
+    }
+
+    .about-header {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .profile-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .about-header h1 {
+      /* MODIFIED: Responsive font size for main title */
+      font-size: clamp(1.75rem, 5vw, 2.5rem);
+      margin: 0;
+    }
+
+    .about-header p {
+      /* MODIFIED: Responsive font size for subtitle */
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      margin: 0.25rem 0 0;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      background-color: #3498db;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+
+      /* MODIFIED: Responsive font size for buttons */
+      font-size: clamp(0.95rem, 2.5vw, 1rem);
+    }
+
+    .btn:hover {
+      background-color: #2980b9;
+    }
+
+    .btn-secondary {
+      background-color: #2ecc71;
+    }
+
+    h2 {
+      /* MODIFIED: Responsive font size for section headings */
+      font-size: clamp(1.25rem, 3vw, 1.75rem);
+      margin-bottom: 0.5rem;
+    }
+
+    section {
+      margin-bottom: 2rem;
+    }
+
+    .skills-list,
+    .project-list,
+    .contact-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .skills-list li,
+    .project-list li,
+    .contact-list li {
+      margin-bottom: 0.5rem;
+    }
+
+    @media (max-width: 640px) {
+      .about-header {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
 </Layout>
