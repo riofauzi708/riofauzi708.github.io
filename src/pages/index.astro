@@ -3,6 +3,19 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import { getCollection } from "astro:content";
+
+// Ambil dan urutkan data blog & project berdasarkan tanggal terbaru
+const blog = (await getCollection("blog"))
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+  .slice(0, 3);
+
+const projects = (await getCollection("projects"))
+  .sort(
+    (a, b) =>
+      (b.data.pubDate?.getTime() || 0) - (a.data.pubDate?.getTime() || 0)
+  )
+  .slice(0, 3);
 ---
 
 <!doctype html>
@@ -14,32 +27,85 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
   </head>
   <body>
     <Header />
+
     <main>
-      <h1>👋 Hi</h1>
-      <p>
-        Welcome to my personal website. I’m a passionate <strong
-          >web developer</strong
-        > and <strong>IT enthusiast</strong> specializing in building modern, fast,
-        and user-friendly websites and applications.
-      </p>
-      <p>
-        Here you’ll find my latest projects, blog posts, and insights about web
-        development, programming, and technology in general.
-      </p>
-      <p>Here’s how to navigate my site:</p>
-      <ul>
-        <li>
-          Explore my <a href="/projects">projects</a> to see what I’ve been working
-          on.
-        </li>
-        <li>Read my thoughts and tutorials on my <a href="/blog">blog</a>.</li>
-        <li>Learn more <a href="/about">about me</a> and my journey in IT.</li>
-        <li>Get in touch via the contact info in the footer.</li>
-      </ul>
-      <p>
-        I’m always learning and open to collaboration, so feel free to reach out
-        if you want to connect!
-      </p>
+      <!-- Hero Section -->
+      <section class="hero" aria-label="Hero introduction">
+        <div class="hero-content">
+          <h1>👋 Hi, I'm Rio Fauzi</h1>
+          <p>
+            I’m a passionate <strong>web developer</strong> and
+            <strong>IT enthusiast</strong> specializing in building modern, fast,
+            and user-friendly websites and applications.
+          </p>
+          <div class="btn-group">
+            <a href="/projects" class="btn">See Projects</a>
+            <a href="/blog" class="btn">Read Blog</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Projects Section -->
+      <section aria-labelledby="projects-title" class="section">
+        <h2 id="projects-title">Projects</h2>
+        <div class="card-list">
+          {
+            projects.map((project) => (
+              <a
+                href={`/projects/${project.slug}`}
+                class="card"
+                aria-label={`Project: ${project.data.title}`}
+              >
+                {project.data.heroImage && (
+                  <img
+                    src={project.data.heroImage}
+                    alt={project.data.title}
+                    loading="lazy"
+                  />
+                )}
+                <h3>{project.data.title}</h3>
+                <p>{project.data.description}</p>
+                {project.data.techStack && (
+                  <ul class="tech-stack">
+                    {project.data.techStack.map((tech) => (
+                      <li>{tech}</li>
+                    ))}
+                  </ul>
+                )}
+              </a>
+            ))
+          }
+        </div>
+      </section>
+
+      <!-- Blog Section -->
+      <section aria-labelledby="blog-title" class="section blog-section">
+        <h2 id="blog-title">Latest Blog Posts</h2>
+        <div class="card-list">
+          {
+            blog.map((post) => (
+              <a
+                href={`/blog/${post.slug}`}
+                class="card"
+                aria-label={`Blog post: ${post.data.title}`}
+              >
+                {post.data.heroImage && (
+                  <img
+                    src={post.data.heroImage}
+                    alt={post.data.title}
+                    loading="lazy"
+                  />
+                )}
+                <h3>{post.data.title}</h3>
+                <p>{post.data.description}</p>
+                <time datetime={post.data.pubDate.toISOString()}>
+                  {post.data.pubDate.toDateString()}
+                </time>
+              </a>
+            ))
+          }
+        </div>
+      </section>
     </main>
 
     <Footer />
