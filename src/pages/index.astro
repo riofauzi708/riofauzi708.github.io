@@ -5,11 +5,12 @@ import Footer from "../components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import { getCollection } from "astro:content";
 
-// Ambil dan urutkan data blog & project berdasarkan tanggal terbaru
-const blog = (await getCollection("blog"))
-  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+// Ambil 3 dokumen terbaru
+const docs = (await getCollection("docs"))
+  .sort((a, b) => b.data.pubDate.getTime() - b.data.pubDate.getTime())
   .slice(0, 3);
 
+// Ambil 3 project terbaru
 const projects = (await getCollection("projects"))
   .sort(
     (a, b) =>
@@ -24,36 +25,277 @@ const projects = (await getCollection("projects"))
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"
     ></script>
+
+    <style>
+      /* --- VARIABEL LOKAL --- */
+      :root {
+        --accent: #2337ff;
+        --accent-dark: #000d8a;
+        --gray: 96, 115, 159;
+        --gray-light: 245, 247, 250;
+        --black: 15, 18, 25;
+        --spacing-md: 1.5rem;
+        --spacing-lg: 2.5rem;
+        --border-radius-sm: 6px;
+        --border-radius-md: 12px;
+        --transition-duration: 0.3s;
+      }
+
+      /* --- MAIN CONTAINER --- */
+      main {
+        max-width: 1200px;
+        padding: 3rem 2rem;
+        margin: 2rem auto 4rem auto;
+      }
+
+      /* --- HERO SECTION --- */
+      .hero {
+        text-align: center;
+        margin-bottom: 4rem;
+        padding: 2rem 0;
+      }
+
+      .hero-content {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.5rem, 5vw + 1rem, 4.5rem);
+        line-height: 1.1;
+        margin-bottom: 1rem;
+        font-weight: 700;
+        letter-spacing: -0.05em;
+        margin-left: auto;
+        margin-right: auto;
+        width: fit-content;
+      }
+
+      .hero p {
+        font-size: 1.3rem;
+        color: rgb(var(--gray));
+        line-height: 1.6;
+        margin-bottom: 0;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 75ch;
+      }
+
+      .section-divider {
+        border: none;
+        border-top: 1px solid rgb(var(--gray-light));
+        margin: 4rem auto;
+        width: 80%;
+        max-width: 800px;
+      }
+
+      /* --- SECTION PREVIEW (Projects & Docs) --- */
+      .section {
+        margin-bottom: 4rem;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 2rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid rgba(var(--gray-light), 1);
+      }
+
+      .section-header h2 {
+        font-size: 2rem;
+        margin: 0;
+        font-weight: 700;
+      }
+
+      .view-all {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 1rem;
+        transition: color var(--transition-duration) ease-in-out;
+      }
+
+      .view-all:hover {
+        color: var(--accent-dark);
+        text-decoration: underline;
+      }
+
+      /* --- CARD LAYOUT (Kunci: Selalu 3 Kolom di Desktop) --- */
+      .card-list {
+        display: grid;
+        /* KUNCI: Gunakan grid-template-columns untuk memaksa 3 kolom */
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+      }
+
+      /* Pastikan grid 3 kolom tetap bekerja pada layar lebar */
+      @media (min-width: 1600px) {
+        .card-list {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      .card {
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+        color: inherit;
+        background-color: #ffffff;
+        border-radius: var(--border-radius-md);
+        box-shadow: 0 4px 12px rgba(var(--gray), 0.1);
+        padding: 1.5rem;
+        height: 100%;
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(var(--accent), 0.15);
+      }
+
+      .card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        margin-bottom: 1rem;
+        border-radius: var(--border-radius-sm);
+        box-shadow: 0 2px 4px rgba(var(--black), 0.1);
+        /* Lazy loading sudah ada di HTML, tapi kita tambahkan object-fit */
+      }
+
+      .card-body {
+        flex-grow: 1;
+      }
+
+      .card h3 {
+        color: rgb(var(--black));
+        font-size: 1.35rem;
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+      }
+
+      .card p {
+        margin-left: 0;
+        margin-right: 0;
+        font-size: 1rem;
+        line-height: 1.5;
+        color: rgb(var(--gray));
+        margin-bottom: 0.5rem;
+      }
+
+      .card time {
+        display: block;
+        margin-top: 1rem;
+        font-size: 0.9rem;
+        color: rgb(var(--gray));
+        font-weight: 500;
+      }
+
+      /* --- TECH STACK (Khusus Proyek) --- */
+      .tech-stack {
+        list-style: none;
+        padding: 0;
+        margin: 0.75rem 0 0 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .tech-stack li {
+        background-color: rgba(var(--accent), 0.1);
+        color: var(--accent);
+        padding: 0.25rem 0.6rem;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+
+      /* --- RESPONSIVE ADJUSTMENTS --- */
+      @media (max-width: 992px) {
+        /* Kembali ke 2 kolom di tablet */
+        .card-list {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 767px) {
+        main {
+          padding: 2rem 1rem;
+        }
+        .hero {
+          margin-bottom: 3rem;
+        }
+        .section-divider {
+          margin: 3rem auto;
+          width: 90%;
+        }
+        .section-header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .view-all {
+          margin-top: 0.5rem;
+        }
+        .card-list {
+          /* Satu kolom di mobile */
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+      }
+    </style>
   </head>
   <body>
     <Header />
 
     <main>
-      <!-- Hero Section -->
       <section class="hero" aria-label="Hero introduction">
         <div class="hero-content">
-          <h1>👋 Hi, I'm Rio Fauzi</h1>
+          <h1>Halo! Saya Rio Fauzi.</h1>
           <p>
-            I’m a passionate <strong>web developer</strong> and
-            <strong>IT enthusiast</strong> specializing in building modern, fast,
-            and user-friendly websites and applications.
+            Saya adalah seorang IT Explorer dan Pembelajar Sejati yang antusias
+            dalam menjelajahi setiap sudut dunia teknologi. Fokus saya tidak
+            hanya pada Web Development yang cepat dan modern, tetapi juga pada
+            Fundamental IT, Infrastruktur yang tangguh, dan proyek-proyek
+            menantang lainnya.
+            <br />
+            Misi Saya: Menerjemahkan keingintahuan menjadi solusi nyata. Di sini,
+            Anda akan menemukan studi kasus dari perjalanan saya—dari clean code
+            di front-end hingga server configuration di back-end.
           </p>
-          <div class="btn-group">
-            <a href="/projects" class="btn">See Projects</a>
-            <a href="/blog" class="btn">Read Blog</a>
-          </div>
+          <a
+            href="/projects"
+            class="view-all hero-cta"
+            style="margin-top: 1.5rem; display: inline-block; font-size: 1.1rem;"
+            >Lihat Bukti Eksplorasi Saya →</a
+          >
         </div>
       </section>
 
-      <!-- Projects Section -->
-      <section aria-labelledby="projects-title" class="section">
-        <h2 id="projects-title">Projects</h2>
+      <hr class="section-divider" />
+
+      <section
+        class="section projects-preview"
+        aria-labelledby="projects-title"
+      >
+        <div class="section-header">
+          <h2 id="projects-title">Proyek Unggulan Terbaru</h2>
+          <a href="/projects" class="view-all">Lihat semua proyek →</a>
+        </div>
+
         <div class="card-list">
           {
             projects.map((project) => (
               <a
                 href={`/projects/${project.slug}`}
-                class="card"
+                class="card project-card"
                 aria-label={`Project: ${project.data.title}`}
               >
                 {project.data.heroImage && (
@@ -63,8 +305,12 @@ const projects = (await getCollection("projects"))
                     loading="lazy"
                   />
                 )}
-                <h3>{project.data.title}</h3>
-                <p>{project.data.description}</p>
+
+                <div class="card-body">
+                  <h3>{project.data.title}</h3>
+                  <p>{project.data.description}</p>
+                </div>
+
                 {project.data.techStack && (
                   <ul class="tech-stack">
                     {project.data.techStack.map((tech) => (
@@ -78,16 +324,19 @@ const projects = (await getCollection("projects"))
         </div>
       </section>
 
-      <!-- Blog Section -->
-      <section aria-labelledby="blog-title" class="section blog-section">
-        <h2 id="blog-title">Latest Blog Posts</h2>
+      <section class="section docs-preview" aria-labelledby="docs-title">
+        <div class="section-header">
+          <h2 id="docs-title">Catatan dan Studi Kasus Terbaru</h2>
+          <a href="/docs" class="view-all">Lihat semua catatan →</a>
+        </div>
+
         <div class="card-list">
           {
-            blog.map((post) => (
+            docs.map((post) => (
               <a
-                href={`/blog/${post.slug}`}
-                class="card"
-                aria-label={`Blog post: ${post.data.title}`}
+                href={`/docs/${post.slug}`}
+                class="card doc-card"
+                aria-label={`Doc: ${post.data.title}`}
               >
                 {post.data.heroImage && (
                   <img
@@ -96,8 +345,12 @@ const projects = (await getCollection("projects"))
                     loading="lazy"
                   />
                 )}
-                <h3>{post.data.title}</h3>
-                <p>{post.data.description}</p>
+
+                <div class="card-body">
+                  <h3>{post.data.title}</h3>
+                  <p>{post.data.description}</p>
+                </div>
+
                 <time datetime={post.data.pubDate.toISOString()}>
                   {post.data.pubDate.toDateString()}
                 </time>

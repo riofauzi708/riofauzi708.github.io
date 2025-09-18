@@ -4,6 +4,7 @@ import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
 import { getCollection } from "astro:content";
+import FormattedDate from "../../components/FormattedDate.astro";
 
 const projects = (await getCollection("projects")).sort(
   (a, b) =>
@@ -16,15 +17,40 @@ const projects = (await getCollection("projects")).sort(
 <html lang="en">
   <head>
     <BaseHead
-      title={`Projects - ${SITE_TITLE}`}
+      title={`Proyek Saya - ${SITE_TITLE}`}
       description={SITE_DESCRIPTION}
     />
     <style>
-      main {
-        width: 960px;
-        margin: 0 auto;
-        padding: 2rem 1rem;
+      /* --- VARIABEL LOKAL (Untuk Konsistensi) --- */
+      :root {
+        --accent: #2337ff;
+        --accent-dark: #000d8a;
+        --gray: 96, 115, 159;
+        --gray-light: 245, 247, 250;
+        --black: 15, 18, 25;
+        --border-radius-md: 12px;
+        --transition-duration: 0.3s;
+        --box-shadow: 0 4px 12px rgba(var(--gray), 0.1);
       }
+
+      /* --- MAIN CONTAINER & JUDUL HALAMAN --- */
+      main {
+        width: 100%;
+        max-width: 1200px;
+        margin: 2rem auto 4rem auto;
+        padding: 2rem 1.5rem;
+      }
+
+      h1 {
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        margin-bottom: 2rem;
+        text-align: center;
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* --- LIST CONTAINER (Flexbox) --- */
       ul {
         display: flex;
         flex-wrap: wrap;
@@ -33,65 +59,129 @@ const projects = (await getCollection("projects")).sort(
         margin: 0;
         padding: 0;
       }
+
+      /* --- ITEM LIST (Card Wrapper) --- */
       ul li {
-        width: calc(50% - 1rem);
+        width: calc(50% - 1rem); /* 2 kolom, mempertahankan gap 2rem total */
       }
-      ul li * {
+
+      /* --- CARD STYLE (Link <a>) --- */
+      ul li a {
+        display: flex;
+        flex-direction: column; /* Default: Gambar di atas, Teks di bawah */
         text-decoration: none;
-        transition: 0.2s ease;
+        color: inherit;
+        background-color: #ffffff;
+        border-radius: var(--border-radius-md);
+        box-shadow: var(--box-shadow);
+        padding: 1.5rem;
+        height: 100%;
+        transition:
+          transform var(--transition-duration) ease,
+          box-shadow var(--transition-duration) ease;
       }
+
+      ul li a:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(var(--accent), 0.15);
+      }
+
+      /* --- Item Pertama (UNGGULAN) - Gambar di atas, Teks di bawah --- */
       ul li:first-child {
         width: 100%;
-        margin-bottom: 1rem;
-        text-align: center;
+        margin-bottom: 2rem;
+        text-align: left;
       }
+
       ul li:first-child img {
-        width: 100%;
-        height: auto;
+        height: 350px;
+        margin-bottom: 1.5rem; /* Tambah jarak ke teks */
       }
-      ul li:first-child .title {
-        font-size: 2.369rem;
+
+      /* --- Item Selain Pertama (SIDE-BY-SIDE LAYOUT) --- */
+      ul li:not(:first-child) a {
+        /* Kunci: Ubah arah flex untuk item non-unggulan */
+        flex-direction: row;
+        align-items: flex-start; /* Sejajarkan konten ke atas */
+        padding: 1rem; /* Padding lebih kecil karena konten bersebelahan */
       }
+
+      ul li:not(:first-child) img {
+        /* Gambar hanya mengambil sebagian kecil lebar kartu */
+        width: 120px;
+        height: 120px;
+        margin: 0 1rem 0 0; /* Margin kanan untuk memisahkan dari teks */
+        flex-shrink: 0; /* Pastikan gambar tidak menyusut */
+      }
+
+      /* --- GAMBAR UMUM --- */
       ul li img {
-        margin-bottom: 0.5rem;
-        border-radius: 12px;
-        width: 100%;
-        height: auto;
+        border-radius: var(--border-radius-md);
+        object-fit: cover;
+        box-shadow: 0 2px 4px rgba(var(--black), 0.1);
       }
-      ul li a {
-        display: block;
-        color: inherit;
+
+      /* --- KONTEN (Judul, Deskripsi, Metadata) --- */
+      .project-content {
+        /* Wrapper untuk Judul, Deskripsi, dan Metadata di layout Side-by-Side */
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
       }
+
       .title {
-        margin: 0.5rem 0 0.25rem;
         color: rgb(var(--black));
         line-height: 1.2;
+        margin: 0 0 0.25rem 0; /* Hapus margin atas/bawah yang tidak perlu */
+        font-size: 1.2rem; /* Ukuran lebih kecil untuk layout side-by-side */
       }
+
+      ul li:first-child .title {
+        font-size: 2.5rem; /* Ukuran tetap besar di item unggulan */
+      }
+
       .description {
-        margin: 0;
+        margin: 0.5rem 0 0;
         color: rgb(var(--gray));
-        font-size: 1rem;
+        font-size: 0.95rem; /* Font lebih kecil agar rapi */
+        line-height: 1.4;
+        flex-grow: 1;
       }
-      ul li a:hover .title,
-      ul li a:hover .description {
-        color: rgb(var(--accent));
+
+      /* Metadata */
+      .meta-group {
+        margin-top: 0.75rem; /* Jarak dari deskripsi */
       }
-      ul li a:hover img {
-        box-shadow: var(--box-shadow);
+
+      .meta {
+        font-size: 0.85rem;
+        color: rgb(var(--gray));
+        margin: 0.1rem 0;
       }
-      @media (max-width: 720px) {
-        ul {
-          gap: 0.5em;
-        }
+
+      /* --- RESPONSIVE ADJUSTMENTS --- */
+      @media (max-width: 900px) {
+        /* Semua menjadi 1 kolom di layar sempit */
         ul li {
           width: 100%;
-          text-align: center;
         }
-        ul li:first-child {
-          margin-bottom: 0;
+        ul li:not(:first-child) a {
+          /* Item non-unggulan di mobile kembali ke atas-bawah */
+          flex-direction: column;
+          align-items: stretch;
+        }
+        ul li:not(:first-child) img {
+          width: 100%;
+          height: 200px;
+          margin: 0 0 1rem 0;
+        }
+        ul li:first-child img {
+          height: 300px;
         }
         ul li:first-child .title {
-          font-size: 1.563rem;
+          font-size: 2rem;
         }
       }
     </style>
@@ -99,23 +189,41 @@ const projects = (await getCollection("projects")).sort(
   <body>
     <Header />
     <main>
+      <h1>Proyek Eksplorasi Saya</h1>
       <section>
         <ul>
           {
-            projects.map((project) => (
+            projects.map((project, index) => (
               <li>
-                <a href={`/projects/${project.id}/`}>
+                <a href={`/projects/${project.slug}/`}>
                   {project.data.heroImage && (
                     <img
                       width={720}
                       height={360}
                       src={project.data.heroImage}
-                      alt={project.data.title}
+                      alt={`Gambar proyek: ${project.data.title}`}
                       loading="lazy"
                     />
                   )}
-                  <h4 class="title">{project.data.title}</h4>
-                  <p class="description">{project.data.description}</p>
+
+                  {/* WRAPPER BARU untuk Judul, Deskripsi, Metadata */}
+                  <div class="project-content">
+                    <h4 class="title">{project.data.title}</h4>
+                    <p class="description">{project.data.description}</p>
+
+                    <div class="meta-group">
+                      {project.data.pubDate && (
+                        <p class="meta">
+                          Tanggal: <FormattedDate date={project.data.pubDate} />
+                        </p>
+                      )}
+                      {project.data.techStack && (
+                        <p class="meta">
+                          Tech: {project.data.techStack.join(", ")}
+                        </p>
+                      )}
+                    </div>
+                  </div>
                 </a>
               </li>
             ))

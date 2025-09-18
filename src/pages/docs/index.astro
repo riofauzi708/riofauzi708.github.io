@@ -1,0 +1,218 @@
+---
+import BaseHead from "../../components/BaseHead.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
+import { getCollection } from "astro:content";
+import FormattedDate from "../../components/FormattedDate.astro";
+
+// Ambil semua docs, abaikan yang draft
+const docs = (await getCollection("docs"))
+  .filter((doc) => !doc.data.draft) // skip draft
+  .sort(
+    (a, b) =>
+      new Date(String(b.data.pubDate)).valueOf() -
+      new Date(String(a.data.pubDate)).valueOf()
+  );
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead
+      title={`Arsip Dokumentasi - ${SITE_TITLE}`}
+      description={SITE_DESCRIPTION}
+    />
+    <style>
+      /* --- VARIABEL LOKAL (Untuk Konsistensi Visual) --- */
+      :root {
+        --accent: #2337ff;
+        --accent-dark: #000d8a;
+        --gray: 96, 115, 159;
+        --gray-light: 245, 247, 250;
+        --black: 15, 18, 25;
+        --border-radius-md: 12px;
+        --transition-duration: 0.3s;
+        --box-shadow: 0 4px 12px rgba(var(--gray), 0.1);
+        --doc-img-size: 80px; /* Ukuran thumbnail dokumen */
+      }
+
+      /* --- MAIN CONTAINER & JUDUL HALAMAN --- */
+      main {
+        width: 100%;
+        max-width: 1000px;
+        margin: 2rem auto 4rem auto;
+        padding: 2rem 1.5rem;
+      }
+
+      h1 {
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        margin-bottom: 2rem;
+        text-align: center;
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* --- LIST CONTAINER (Flexbox) --- */
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      /* --- ITEM LIST (Card Wrapper - Dua Kolom Rapi) --- */
+      ul li {
+        width: calc(50% - 0.75rem);
+      }
+
+      /* --- CARD STYLE (Link <a>) --- */
+      ul li a {
+        /* KUNCI: Layout sejajar, baik ada gambar atau tidak */
+        display: flex;
+        flex-direction: row; /* Selalu sejajar */
+        align-items: flex-start; /* Sejajar di bagian atas */
+        text-decoration: none;
+        color: inherit;
+        background-color: #ffffff;
+        border-radius: var(--border-radius-md);
+        box-shadow: var(--box-shadow);
+        padding: 1.2rem;
+        height: 100%;
+        transition:
+          transform var(--transition-duration) ease,
+          box-shadow var(--transition-duration) ease;
+      }
+
+      ul li a:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(var(--accent), 0.1);
+      }
+
+      /* --- Gambar Thumbnail (HANYA MUNCUL JIKA ADA) --- */
+      .doc-thumbnail {
+        width: var(--doc-img-size);
+        height: var(--doc-img-size);
+        object-fit: cover;
+        border-radius: 8px;
+        margin-right: 1rem;
+        /* Pastikan gambar tidak menyusut, sehingga teks di sampingnya tahu di mana harus dimulai */
+        flex-shrink: 0;
+        box-shadow: 0 2px 4px rgba(var(--black), 0.1);
+      }
+
+      /* --- KONTEN TEKS WRAPPER --- */
+      .meta-group {
+        /* Selalu mengisi sisa ruang */
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Judul */
+      .title {
+        color: rgb(var(--black));
+        font-size: 1.25rem;
+        margin: 0 0 0.25rem 0;
+        line-height: 1.3;
+        font-weight: 700;
+      }
+
+      /* Deskripsi & Metadata */
+      .date-meta {
+        display: block;
+        font-size: 0.85rem;
+        color: var(--accent-dark);
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .description {
+        margin: 0.5rem 0 0;
+        color: rgb(var(--gray));
+        font-size: 0.95rem;
+        line-height: 1.5;
+        /* Penting: Agar teks mengisi ruang dan mendorong semua konten ke bawah secara merata */
+        flex-grow: 1;
+      }
+
+      /* --- RESPONSIVE ADJUSTMENTS --- */
+      @media (max-width: 720px) {
+        main {
+          padding: 1.5rem 1rem;
+        }
+        ul li {
+          width: 100%; /* Satu kolom di mobile */
+        }
+        /* Thumbnail di mobile bisa sedikit lebih kecil */
+        .doc-thumbnail {
+          width: 60px;
+          height: 60px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <h1>Arsip Dokumentasi & Studi Kasus</h1>
+      <section>
+        <ul>
+          {
+            docs.map((post) => (
+              <li>
+                <a href={`/docs/${post.slug}/`}>
+                  {/* Gambar Thumbnail (Hanya muncul jika ada heroImage) */}
+                  {post.data.heroImage ? (
+                    <img
+                      class="doc-thumbnail"
+                      width={80}
+                      height={80}
+                      src={post.data.heroImage}
+                      alt={`Thumbnail dokumen: ${post.data.title}`}
+                      loading="lazy"
+                    />
+                  ) : (
+                    /* KUNCI: Placeholder kosong jika tidak ada gambar, 
+                       memastikan meta-group tetap di kiri paling luar */
+                    <div
+                      style={`width: var(--doc-img-size); height: 1px; margin-right: 1rem; flex-shrink: 0;`}
+                    />
+                  )}
+
+                  <div class="meta-group">
+                    <h4 class="title">{post.data.title}</h4>
+
+                    {post.data.pubDate && (
+                      <span class="date-meta">
+                        Dipublikasikan:{" "}
+                        <FormattedDate date={post.data.pubDate} />
+                      </span>
+                    )}
+
+                    {post.data.updatedDate && (
+                      <span
+                        class="date-meta"
+                        style="color: rgb(var(--gray)); font-weight: 400;"
+                      >
+                        Diperbarui:{" "}
+                        <FormattedDate date={post.data.updatedDate} />
+                      </span>
+                    )}
+
+                    {/* Menggunakan description dari frontmatter */}
+                    <p class="description">{post.data.description}</p>
+                  </div>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+    </main>
+    <Footer />
+  </body>
+</html>

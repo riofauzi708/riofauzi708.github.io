@@ -7,18 +7,27 @@ media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
 
 collections:
-  - name: "blog"
-    label: "Blog"
-    folder: "src/content/blog"
+  - name: "docs"
+    label: "Docs"
+    folder: "src/content/docs"
     extension: "md"
     format: "frontmatter"
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    slug: "{{slug}}"
     fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Description", name: "description", widget: "string" }
+      - { label: "Title", name: "title", widget: "string", required: true }
+      - { label: "Description", name: "description", widget: "text", required: true }
       - { label: "Publish Date", name: "pubDate", widget: "datetime" }
-      - { label: "Hero Image", name: "heroImage", widget: "image" }
+      - { label: "Updated Date", name: "updatedDate", widget: "datetime", required: false }
+      - { label: "Hero Image", name: "heroImage", widget: "image", required: false }
+      - label: "Tags"
+        name: "tags"
+        widget: "list"
+        field: { label: "Tag", name: "tag", widget: "string" }
+      - label: "Draft"
+        name: "draft"
+        widget: "boolean"
+        default: false
       - { label: "Body", name: "body", widget: "markdown" }
 
   - name: "projects"
@@ -29,32 +38,35 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Short Description", name: "description", widget: "text" }
+      - { label: "Title", name: "title", widget: "string", required: true }
+      - { label: "Short Description", name: "description", widget: "text", required: true }
       - { label: "Publish Date", name: "pubDate", widget: "datetime" }
-      - { label: "Thumbnail Image", name: "heroImage", widget: "image" }
-
+      - { label: "Thumbnail Image", name: "heroImage", widget: "image", required: false }
       - label: "Project Type"
         name: "projectType"
         widget: "select"
         options: ["Personal", "Team"]
         default: "Personal"
-
+      - label: "Platform"
+        name: "platform"
+        widget: "select"
+        options: ["Mobile", "Website", "Other"]
+        default: "Website"
       - label: "Tech Stack"
         name: "techStack"
         widget: "list"
+        allow_add: true
         field: { label: "Tech", name: "tech", widget: "string" }
-
       - label: "Live URL"
         name: "liveUrl"
         widget: "string"
         required: false
-
       - label: "Source Code"
         name: "sourceUrl"
         widget: "string"
         required: false
-
-      - label: "Body"
-        name: "body"
-        widget: "markdown"
+      - label: "Draft"
+        name: "draft"
+        widget: "boolean"
+        default: false
+      - { label: "Body", name: "body", widget: "markdown" }

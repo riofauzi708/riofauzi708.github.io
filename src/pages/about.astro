@@ -9,7 +9,6 @@ import Layout from "../layouts/AboutLayout.astro";
   heroImage="/images/uploads/rio-fauzi.jpg"
 >
   <section class="about-page">
-    <!-- Header -->
     <header class="about-header">
       <img
         src="/images/uploads/rio-fauzi.jpg"
@@ -20,13 +19,15 @@ import Layout from "../layouts/AboutLayout.astro";
         <h1>Rio Fauzi</h1>
         <p>Web Developer · IT Generalist · SEO Specialist</p>
         <div class="cta-buttons">
-          <a href="/files/CV-RioFauzi.pdf" class="btn" download>
+          <a href="/files/CV-RioFauzi.pdf" class="btn btn-primary" download>
             📄 Download CV
           </a>
-          <a href="mailto:rio@example.com" class="btn btn-hire"> ✉️ Hire Me </a>
+          <a href="mailto:rio@example.com" class="btn btn-secondary">
+            ✉️ Hire Me
+          </a>
           <a
             href="https://wa.me/6282384811190"
-            class="btn btn-secondary"
+            class="btn btn-tertiary"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -36,7 +37,6 @@ import Layout from "../layouts/AboutLayout.astro";
       </div>
     </header>
 
-    <!-- Profil Singkat -->
     <section>
       <h2>Profil Singkat</h2>
       <p>
@@ -48,10 +48,9 @@ import Layout from "../layouts/AboutLayout.astro";
       </p>
     </section>
 
-    <!-- Keahlian -->
     <section>
       <h2>Keahlian Teknis</h2>
-      <ul class="skills-list">
+      <ul class="skills-grid">
         <li>💻 HTML, CSS, JavaScript, TypeScript</li>
         <li>⚙️ Laravel, Node.js, Express, NestJS</li>
         <li>🧠 React, Next.js, Mantine UI, Chakra UI</li>
@@ -61,9 +60,8 @@ import Layout from "../layouts/AboutLayout.astro";
       </ul>
     </section>
 
-    <!-- Pengalaman Proyek -->
     <section>
-      <h2>Pengalaman Proyek</h2>
+      <h2>Pengalaman Proyek Utama</h2>
       <ul class="project-list">
         <li>
           <strong>Circle App</strong> – Twitter-like platform (React, Node.js, Prisma)
@@ -80,35 +78,39 @@ import Layout from "../layouts/AboutLayout.astro";
       </ul>
     </section>
 
-    <!-- Pendidikan -->
     <section>
       <h2>Pendidikan</h2>
-      <p>
-        Mahasiswa aktif di bidang Teknologi Informasi, dengan pengalaman
-        bootcamp intensif selama 7 bulan serta pembelajaran mandiri sejak 2023.
-      </p>
+      <div class="education-card">
+        <p>
+          <strong>Teknologi Informasi (Aktif)</strong>
+        </p>
+        <p>
+          Mahasiswa aktif di bidang Teknologi Informasi, dengan pengalaman
+          bootcamp intensif selama 7 bulan serta pembelajaran mandiri sejak
+          2023.
+        </p>
+      </div>
     </section>
 
-    <!-- Kontak -->
     <section>
       <h2>Kontak & Sosial</h2>
-      <ul class="contact-list">
+      <ul class="contact-grid">
         <li>
-          Email: <a href="mailto:riofauzi708@gmail.com"
-            >riofauzi708@gmail.com</a>
+          <span>✉️ Email:</span>
+          <a href="mailto:riofauzi708@gmail.com">riofauzi708@gmail.com</a>
         </li>
         <li>
-          GitHub: <a href="https://github.com/riofauzi708"
-            >github.com/riofauzi708</a
+          <span>🐙 GitHub:</span>
+          <a href="https://github.com/riofauzi708">github.com/riofauzi708</a>
+        </li>
+        <li>
+          <span>🔗 LinkedIn:</span>
+          <a href="https://linkedin.com/in/riofauzi">linkedin.com/in/riofauzi</a
           >
         </li>
         <li>
-          LinkedIn: <a href="https://linkedin.com/in/riofauzi"
-            >linkedin.com/in/riofauzi</a
-          >
-        </li>
-        <li>
-          Website: <a href="https://rio-first-web.netlify.app"
+          <span>🌐 Website:</span>
+          <a href="https://rio-first-web.netlify.app"
             >rio-first-web.netlify.app</a
           >
         </li>
@@ -117,114 +119,222 @@ import Layout from "../layouts/AboutLayout.astro";
   </section>
 
   <style>
+    /* --- VARIABEL LOKAL (Pastikan Konsisten) --- */
+    :root {
+      --accent: #2337ff;
+      --accent-dark: #000d8a;
+      --gray: 96, 115, 159;
+      --gray-light: 245, 247, 250;
+      --black: 15, 18, 25;
+      --border-radius-md: 12px;
+      --transition-duration: 0.3s;
+      --box-shadow: 0 4px 12px rgba(var(--gray), 0.1);
+    }
+
     .about-page {
       max-width: 900px;
       margin: 0 auto;
-      padding: 2rem 1rem;
-      font-family: "Segoe UI", sans-serif;
-      color: #333;
+      padding: 2rem 1.5rem; /* Padding konsisten */
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+        "Segoe UI Symbol";
+      color: rgb(var(--black));
 
       /* MODIFIED: Responsive font size */
-      font-size: clamp(0.95rem, 2vw, 1.125rem);
-      line-height: 1.75;
+      font-size: clamp(1rem, 2vw, 1.1rem);
+      line-height: 1.7;
     }
 
+    /* --- HEADER & PROFIL --- */
     .about-header {
       display: flex;
       gap: 2rem;
       align-items: center;
       flex-wrap: wrap;
-      margin-bottom: 2rem;
+      margin-bottom: 3rem; /* Jarak lebih luas */
+      padding: 1.5rem;
+      border-radius: var(--border-radius-md);
+      background-color: rgb(
+        var(--gray-light)
+      ); /* Latar belakang untuk header */
     }
 
     .profile-img {
-      width: 120px;
-      height: 120px;
+      width: 130px; /* Ukuran sedikit lebih besar */
+      height: 130px;
       border-radius: 50%;
       object-fit: cover;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 16px rgba(var(--black), 0.1);
     }
 
     .about-header h1 {
-      /* MODIFIED: Responsive font size for main title */
-      font-size: clamp(1.75rem, 5vw, 2.5rem);
+      color: rgb(var(--black));
+      font-size: clamp(2rem, 5vw, 3rem);
       margin: 0;
     }
 
     .about-header p {
-      /* MODIFIED: Responsive font size for subtitle */
-      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: rgb(var(--gray));
+      font-size: clamp(1.05rem, 2.5vw, 1.3rem);
       margin: 0.25rem 0 0;
+      font-weight: 500;
     }
 
+    /* --- TOMBOL CTA --- */
     .cta-buttons {
       display: flex;
-      gap: 1rem;
-      margin-top: 1rem;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
       flex-wrap: wrap;
     }
 
     .btn {
-      background-color: #3498db;
-      color: white;
-      padding: 0.6rem 1.2rem;
-      border-radius: 6px;
+      padding: 0.75rem 1.25rem;
+      border-radius: 8px;
       text-decoration: none;
-      transition: background-color 0.3s ease;
-
-      /* MODIFIED: Responsive font size for buttons */
-      font-size: clamp(0.95rem, 2.5vw, 1rem);
+      font-weight: 600;
+      transition: all 0.3s ease;
+      font-size: clamp(0.9rem, 2vw, 1rem);
+      box-shadow: 0 2px 5px rgba(var(--black), 0.1);
     }
 
-    .btn:hover {
-      background-color: #2980b9;
+    .btn-primary {
+      background-color: var(--accent);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--accent-dark);
     }
 
     .btn-secondary {
-      background-color: #2ecc71;
+      background-color: #e74c3c; /* Warna Hire Me (Merah) */
+      color: white;
     }
 
-    .btn-hire {
-      background-color: #e74c3c;
+    .btn-secondary:hover {
+      background-color: #c0392b;
     }
 
+    .btn-tertiary {
+      background-color: #2ecc71; /* Warna WhatsApp (Hijau) */
+      color: white;
+    }
+
+    .btn-tertiary:hover {
+      background-color: #27ae60;
+    }
+
+    /* --- SECTION HEADINGS --- */
     h2 {
-      /* MODIFIED: Responsive font size for section headings */
-      font-size: clamp(1.25rem, 3vw, 1.75rem);
-      margin-bottom: 0.5rem;
+      color: var(--accent);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+      border-bottom: 2px solid rgba(var(--gray), 0.1);
+      padding-bottom: 0.5rem;
     }
 
     section {
-      margin-bottom: 2rem;
+      margin-bottom: 3rem;
     }
 
-    .skills-list,
-    .project-list,
-    .contact-list {
+    /* --- SKILLS GRID (Dua Kolom) --- */
+    .skills-grid {
+      list-style: none;
+      padding-left: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 0.75rem 1.5rem;
+    }
+
+    .skills-grid li {
+      font-weight: 500;
+      color: rgb(var(--black));
+      /* Margin dihapus karena sudah ada gap di grid */
+      margin-bottom: 0;
+    }
+
+    /* --- PROJECT LIST (Bullet Point) --- */
+    .project-list {
+      list-style-type: "👉"; /* Bullet kustom */
+      padding-left: 1.5rem;
+    }
+
+    .project-list li {
+      margin-bottom: 0.5rem;
+    }
+
+    /* --- EDUCATION CARD --- */
+    .education-card {
+      padding: 1rem;
+      border-left: 4px solid var(--accent);
+      background-color: rgb(var(--gray-light), 0.5);
+      border-radius: 4px;
+    }
+
+    .education-card p {
+      margin: 0.5rem 0;
+    }
+
+    /* --- CONTACT GRID (Labeling Rapi) --- */
+    .contact-grid {
       list-style: none;
       padding-left: 0;
     }
 
-    .skills-list li,
-    .project-list li,
-    .contact-list li {
+    .contact-grid li {
+      display: flex; /* Memastikan label dan link sejajar */
+      gap: 0.75rem;
       margin-bottom: 0.5rem;
+      font-weight: 500;
     }
 
+    .contact-grid li span {
+      width: 100px; /* Lebar label yang tetap agar rapi */
+      color: rgb(var(--gray));
+      flex-shrink: 0;
+    }
+
+    .contact-grid li a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .contact-grid li a:hover {
+      text-decoration: underline;
+    }
+
+    /* --- RESPONSIVE ADJUSTMENTS --- */
     @media (max-width: 640px) {
       .about-header {
         flex-direction: column;
         text-align: center;
+        padding: 1rem;
+      }
+
+      .profile-img {
+        width: 100px;
+        height: 100px;
       }
 
       .cta-buttons {
-        flex-direction: column;
-        align-items: center;
+        flex-direction: row; /* Biarkan tombol sejajar jika memungkinkan */
+        justify-content: center;
       }
 
-      .btn {
-        width: 100%;
-        text-align: center;
+      .skills-grid {
+        grid-template-columns: 1fr; /* Satu kolom di mobile */
+      }
+
+      .contact-grid li {
+        flex-direction: column;
+        gap: 0.2rem;
+      }
+      .contact-grid li span {
+        width: auto;
+        font-weight: 700;
       }
     }
   </style>
