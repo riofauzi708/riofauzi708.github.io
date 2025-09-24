@@ -1,33 +1,21 @@
 ---
-title: "Personal Portfolio Website"
-description: "A fast and SEO-optimized personal portfolio built with Astro and Tailwind CSS to showcase my projects and skills."
+title: Mokoworkwear – Shopify E-Commerce Website
+description: A high-speed, conversion-focused storefront showcasing
+  Mokoworkwear’s ready-stock workwear. I crafted a clean, mobile-first design
+  with seamless navigation and strong SEO to boost visibility and sales.
 pubDate: 2024-12-01
-heroImage: "/blog-placeholder-5.jpg"
-sourceUrl: "https://github.com/riofauzi708/personal-portfolio"
+heroImage: /images/uploads/untitled-design.jpg
+projectType: Personal
+platform: Website
+techStack:
+  - Shopify
+  - Dawn
+  - Liquid
+  - HTML5
+  - CSS3
+  - Javascript
+liveUrl: https://mokoworkwear.com/
+sourceUrl: ""
+draft: false
 ---
-
-This is a blazing fast and minimalist portfolio website built using **Astro**, **Tailwind CSS**, and **Decap CMS**. It allows easy content management for blog posts and projects directly via a browser.
-
-### 🔧 Features
-
-- 🔍 SEO optimized with `astro:content` and semantic structure
-- 🌓 Dark mode support with Tailwind
-- ⚡️ Ultra fast performance via static site generation
-- ✍️ Blog & Project section integrated with CMS
-- 📱 Responsive across all screen sizes
-
-### 📈 Technologies Used
-
-- **Astro**
-- **Tailwind CSS**
-- **Decap CMS**
-- **Markdown Content System**
-- **GitHub Pages** for deployment
-
-### 🛠 Future Improvements
-
-- Add project filtering and tags
-- Integrate contact form with Formspree or Netlify Forms
-- Add animations using Framer Motion
-
-Feel free to fork the [source code](https://github.com/riofauzi708/personal-portfolio) and customize it for your own portfolio.
+I built the **Mokoworkwear Shopify Website** to create a fast, scalable online storefront that showcases the brand’s **ready-stock workwear** and drives direct sales across Indonesia. My goal was to deliver a seamless shopping experience that feels polished and professional on any device while remaining easy for the internal team to maintain. Using **Shopify Online Store 2.0** with a heavily customized Dawn theme, I combined **Liquid**, **HTML5**, **SCSS/CSS3**, and **vanilla JavaScript** to craft a clean, mobile-first design with smooth interactive elements like a custom mega menu and autoplay hero slideshow. I integrated **Shopify Search & Discovery**, **Google Analytics**, and **Meta Pixel** to improve product discovery and track conversions, while optimizing performance and SEO to achieve sub-two-second load times and strong organic visibility. The result is a high-performance e-commerce site that reflects Mokoworkwear’s brand identity, increases nationwide reach, and provides a maintainable platform for ongoing growth.
