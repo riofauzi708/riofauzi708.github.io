@@ -11,6 +11,10 @@ const projects = (await getCollection("projects")).sort(
     new Date(String(b.data.pubDate)).valueOf() -
     new Date(String(a.data.pubDate)).valueOf()
 );
+
+// Pisahkan proyek unggulan (pertama) dari daftar lainnya
+const featuredProject = projects[0];
+const otherProjects = projects.slice(1);
 ---
 
 <!doctype html>
@@ -21,19 +25,23 @@ const projects = (await getCollection("projects")).sort(
       description={SITE_DESCRIPTION}
     />
     <style>
-      /* --- VARIABEL LOKAL (Untuk Konsistensi) --- */
+      /* --- VARIABEL LOKAL & STYLING DASAR --- */
       :root {
         --accent: #2337ff;
         --accent-dark: #000d8a;
         --gray: 96, 115, 159;
         --gray-light: 245, 247, 250;
         --black: 15, 18, 25;
+        --white: 255, 255, 255;
         --border-radius-md: 12px;
         --transition-duration: 0.3s;
         --box-shadow: 0 4px 12px rgba(var(--gray), 0.1);
       }
 
-      /* --- MAIN CONTAINER & JUDUL HALAMAN --- */
+      body {
+        background-color: rgb(var(--gray-light));
+      }
+
       main {
         width: 100%;
         max-width: 1200px;
@@ -50,28 +58,19 @@ const projects = (await getCollection("projects")).sort(
         margin-right: auto;
       }
 
-      /* --- LIST CONTAINER (Flexbox) --- */
-      ul {
+      /* --- KONTEN UTAMA --- */
+      section {
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: column;
         gap: 2rem;
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
       }
 
-      /* --- ITEM LIST (Card Wrapper) --- */
-      ul li {
-        width: calc(50% - 1rem); /* 2 kolom, mempertahankan gap 2rem total */
-      }
-
-      /* --- CARD STYLE (Link <a>) --- */
-      ul li a {
+      .featured-project a {
         display: flex;
-        flex-direction: column; /* Default: Gambar di atas, Teks di bawah */
+        flex-direction: column;
         text-decoration: none;
         color: inherit;
-        background-color: #ffffff;
+        background-color: rgb(var(--white));
         border-radius: var(--border-radius-md);
         box-shadow: var(--box-shadow);
         padding: 1.5rem;
@@ -81,49 +80,59 @@ const projects = (await getCollection("projects")).sort(
           box-shadow var(--transition-duration) ease;
       }
 
-      ul li a:hover {
+      .featured-project a:hover {
         transform: translateY(-5px);
         box-shadow: 0 8px 20px rgba(var(--accent), 0.15);
       }
 
-      /* --- Item Pertama (UNGGULAN) - Gambar di atas, Teks di bawah --- */
-      ul li:first-child {
+      .featured-project img {
         width: 100%;
-        margin-bottom: 2rem;
-        text-align: left;
-      }
-
-      ul li:first-child img {
         height: 350px;
-        margin-bottom: 1.5rem; /* Tambah jarak ke teks */
-      }
-
-      /* --- Item Selain Pertama (SIDE-BY-SIDE LAYOUT) --- */
-      ul li:not(:first-child) a {
-        /* Kunci: Ubah arah flex untuk item non-unggulan */
-        flex-direction: row;
-        align-items: flex-start; /* Sejajarkan konten ke atas */
-        padding: 1rem; /* Padding lebih kecil karena konten bersebelahan */
-      }
-
-      ul li:not(:first-child) img {
-        /* Gambar hanya mengambil sebagian kecil lebar kartu */
-        width: 120px;
-        height: 120px;
-        margin: 0 1rem 0 0; /* Margin kanan untuk memisahkan dari teks */
-        flex-shrink: 0; /* Pastikan gambar tidak menyusut */
-      }
-
-      /* --- GAMBAR UMUM --- */
-      ul li img {
-        border-radius: var(--border-radius-md);
         object-fit: cover;
-        box-shadow: 0 2px 4px rgba(var(--black), 0.1);
+        border-radius: var(--border-radius-md);
+        margin-bottom: 1.5rem;
       }
 
-      /* --- KONTEN (Judul, Deskripsi, Metadata) --- */
+      /* --- LIST PROYEK LAINNYA (MENGGUNAKAN GRID) --- */
+      .project-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .project-list li a {
+        display: flex;
+        flex-direction: column; /* Ubah ke column agar lebih rapi di grid */
+        text-decoration: none;
+        color: inherit;
+        background-color: rgb(var(--white));
+        border-radius: var(--border-radius-md);
+        box-shadow: var(--box-shadow);
+        padding: 1.5rem;
+        height: 100%;
+        transition:
+          transform var(--transition-duration) ease,
+          box-shadow var(--transition-duration) ease;
+      }
+
+      .project-list li a:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(var(--accent), 0.15);
+      }
+
+      .project-list img {
+        width: 100%;
+        height: 200px; /* Ukuran gambar yang konsisten */
+        object-fit: cover;
+        border-radius: var(--border-radius-md);
+        margin-bottom: 1rem;
+      }
+
+      /* --- KONTEN DALAM KARTU --- */
       .project-content {
-        /* Wrapper untuk Judul, Deskripsi, dan Metadata di layout Side-by-Side */
         flex-grow: 1;
         display: flex;
         flex-direction: column;
@@ -134,25 +143,25 @@ const projects = (await getCollection("projects")).sort(
       .title {
         color: rgb(var(--black));
         line-height: 1.2;
-        margin: 0 0 0.25rem 0; /* Hapus margin atas/bawah yang tidak perlu */
-        font-size: 1.2rem; /* Ukuran lebih kecil untuk layout side-by-side */
+        margin: 0 0 0.25rem 0;
+        font-size: 1.25rem;
+        transition: color var(--transition-duration) ease;
       }
 
-      ul li:first-child .title {
-        font-size: 2.5rem; /* Ukuran tetap besar di item unggulan */
+      a:hover .title {
+        color: rgb(var(--accent));
       }
 
       .description {
         margin: 0.5rem 0 0;
         color: rgb(var(--gray));
-        font-size: 0.95rem; /* Font lebih kecil agar rapi */
+        font-size: 0.95rem;
         line-height: 1.4;
         flex-grow: 1;
       }
 
-      /* Metadata */
       .meta-group {
-        margin-top: 0.75rem; /* Jarak dari deskripsi */
+        margin-top: 0.75rem;
       }
 
       .meta {
@@ -163,25 +172,8 @@ const projects = (await getCollection("projects")).sort(
 
       /* --- RESPONSIVE ADJUSTMENTS --- */
       @media (max-width: 900px) {
-        /* Semua menjadi 1 kolom di layar sempit */
-        ul li {
-          width: 100%;
-        }
-        ul li:not(:first-child) a {
-          /* Item non-unggulan di mobile kembali ke atas-bawah */
-          flex-direction: column;
-          align-items: stretch;
-        }
-        ul li:not(:first-child) img {
-          width: 100%;
-          height: 200px;
-          margin: 0 0 1rem 0;
-        }
-        ul li:first-child img {
+        .featured-project img {
           height: 300px;
-        }
-        ul li:first-child .title {
-          font-size: 2rem;
         }
       }
     </style>
@@ -191,26 +183,61 @@ const projects = (await getCollection("projects")).sort(
     <main>
       <h1>Proyek Eksplorasi Saya</h1>
       <section>
-        <ul>
+        {
+          featuredProject && (
+            <div class="featured-project">
+              <a href={`/projects/${featuredProject.slug}/`}>
+                {featuredProject.data.heroImage && (
+                  <img
+                    width={1020}
+                    height={510}
+                    src={
+                      featuredProject.data.heroImage +
+                      "?w=1020&h=510&format=webp"
+                    }
+                    alt={`Gambar proyek: ${featuredProject.data.title}`}
+                    loading="lazy"
+                  />
+                )}
+                <div class="project-content">
+                  <h4 class="title">{featuredProject.data.title}</h4>
+                  <p class="description">{featuredProject.data.description}</p>
+                  <div class="meta-group">
+                    {featuredProject.data.pubDate && (
+                      <p class="meta">
+                        Tanggal:{" "}
+                        <FormattedDate date={featuredProject.data.pubDate} />
+                      </p>
+                    )}
+                    {featuredProject.data.techStack && (
+                      <p class="meta">
+                        Tech: {featuredProject.data.techStack.join(", ")}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </a>
+            </div>
+          )
+        }
+
+        <ul class="project-list">
           {
-            projects.map((project, index) => (
+            otherProjects.map((project) => (
               <li>
                 <a href={`/projects/${project.slug}/`}>
                   {project.data.heroImage && (
                     <img
-                      width={720}
-                      height={360}
-                      src={project.data.heroImage}
+                      width={400}
+                      height={200}
+                      src={project.data.heroImage + "?w=400&h=200&format=webp"}
                       alt={`Gambar proyek: ${project.data.title}`}
                       loading="lazy"
                     />
                   )}
-
-                  {/* WRAPPER BARU untuk Judul, Deskripsi, Metadata */}
                   <div class="project-content">
                     <h4 class="title">{project.data.title}</h4>
                     <p class="description">{project.data.description}</p>
-
                     <div class="meta-group">
                       {project.data.pubDate && (
                         <p class="meta">

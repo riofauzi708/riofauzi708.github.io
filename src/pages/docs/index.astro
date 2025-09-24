@@ -8,7 +8,7 @@ import FormattedDate from "../../components/FormattedDate.astro";
 
 // Ambil semua docs, abaikan yang draft
 const docs = (await getCollection("docs"))
-  .filter((doc) => !doc.data.draft) // skip draft
+  .filter((doc) => !doc.data.draft)
   .sort(
     (a, b) =>
       new Date(String(b.data.pubDate)).valueOf() -
@@ -24,20 +24,24 @@ const docs = (await getCollection("docs"))
       description={SITE_DESCRIPTION}
     />
     <style>
-      /* --- VARIABEL LOKAL (Untuk Konsistensi Visual) --- */
+      /* --- GLOBAL STYLING --- */
       :root {
         --accent: #2337ff;
         --accent-dark: #000d8a;
         --gray: 96, 115, 159;
         --gray-light: 245, 247, 250;
         --black: 15, 18, 25;
+        --white: 255, 255, 255;
         --border-radius-md: 12px;
         --transition-duration: 0.3s;
         --box-shadow: 0 4px 12px rgba(var(--gray), 0.1);
-        --doc-img-size: 80px; /* Ukuran thumbnail dokumen */
+        --doc-img-size: 80px;
       }
 
-      /* --- MAIN CONTAINER & JUDUL HALAMAN --- */
+      body {
+        background-color: rgb(var(--gray-light));
+      }
+
       main {
         width: 100%;
         max-width: 1000px;
@@ -49,38 +53,29 @@ const docs = (await getCollection("docs"))
         font-size: clamp(2rem, 5vw, 3.5rem);
         margin-bottom: 2rem;
         text-align: center;
-        width: fit-content;
-        margin-left: auto;
-        margin-right: auto;
       }
 
-      /* --- LIST CONTAINER (Flexbox) --- */
+      /* --- CARD LIST --- */
       ul {
-        display: flex;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
         gap: 1.5rem;
         list-style-type: none;
         margin: 0;
         padding: 0;
       }
 
-      /* --- ITEM LIST (Card Wrapper - Dua Kolom Rapi) --- */
-      ul li {
-        width: calc(50% - 0.75rem);
-      }
-
-      /* --- CARD STYLE (Link <a>) --- */
+      /* --- CARD STYLE --- */
       ul li a {
-        /* KUNCI: Layout sejajar, baik ada gambar atau tidak */
         display: flex;
-        flex-direction: row; /* Selalu sejajar */
-        align-items: flex-start; /* Sejajar di bagian atas */
+        flex-direction: row;
+        align-items: flex-start;
         text-decoration: none;
         color: inherit;
-        background-color: #ffffff;
+        background-color: rgb(var(--white));
         border-radius: var(--border-radius-md);
         box-shadow: var(--box-shadow);
-        padding: 1.2rem;
+        padding: 1.5rem;
         height: 100%;
         transition:
           transform var(--transition-duration) ease,
@@ -88,42 +83,39 @@ const docs = (await getCollection("docs"))
       }
 
       ul li a:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 15px rgba(var(--accent), 0.1);
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(var(--accent), 0.1);
       }
 
-      /* --- Gambar Thumbnail (HANYA MUNCUL JIKA ADA) --- */
       .doc-thumbnail {
         width: var(--doc-img-size);
         height: var(--doc-img-size);
         object-fit: cover;
         border-radius: 8px;
-        margin-right: 1rem;
-        /* Pastikan gambar tidak menyusut, sehingga teks di sampingnya tahu di mana harus dimulai */
+        margin-right: 1.25rem;
         flex-shrink: 0;
-        box-shadow: 0 2px 4px rgba(var(--black), 0.1);
       }
 
-      /* --- KONTEN TEKS WRAPPER --- */
       .meta-group {
-        /* Selalu mengisi sisa ruang */
         flex-grow: 1;
         display: flex;
         flex-direction: column;
       }
 
-      /* Judul */
       .title {
         color: rgb(var(--black));
         font-size: 1.25rem;
         margin: 0 0 0.25rem 0;
         line-height: 1.3;
         font-weight: 700;
+        transition: color var(--transition-duration) ease;
       }
 
-      /* Deskripsi & Metadata */
+      ul li a:hover .title {
+        color: rgb(var(--accent));
+      }
+
       .date-meta {
-        display: block;
         font-size: 0.85rem;
         color: var(--accent-dark);
         font-weight: 600;
@@ -135,22 +127,22 @@ const docs = (await getCollection("docs"))
         color: rgb(var(--gray));
         font-size: 0.95rem;
         line-height: 1.5;
-        /* Penting: Agar teks mengisi ruang dan mendorong semua konten ke bawah secara merata */
         flex-grow: 1;
       }
 
       /* --- RESPONSIVE ADJUSTMENTS --- */
-      @media (max-width: 720px) {
-        main {
-          padding: 1.5rem 1rem;
+      @media (max-width: 450px) {
+        ul li a {
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
         }
-        ul li {
-          width: 100%; /* Satu kolom di mobile */
-        }
-        /* Thumbnail di mobile bisa sedikit lebih kecil */
         .doc-thumbnail {
-          width: 60px;
-          height: 60px;
+          margin-right: 0;
+          margin-bottom: 1rem;
+        }
+        .meta-group {
+          align-items: center;
         }
       }
     </style>
@@ -165,22 +157,58 @@ const docs = (await getCollection("docs"))
             docs.map((post) => (
               <li>
                 <a href={`/docs/${post.slug}/`}>
-                  {/* Gambar Thumbnail (Hanya muncul jika ada heroImage) */}
                   {post.data.heroImage ? (
                     <img
                       class="doc-thumbnail"
                       width={80}
                       height={80}
-                      src={post.data.heroImage}
+                      src={post.data.heroImage + "?w=100&h=100&format=webp"}
                       alt={`Thumbnail dokumen: ${post.data.title}`}
                       loading="lazy"
                     />
                   ) : (
-                    /* KUNCI: Placeholder kosong jika tidak ada gambar, 
-                       memastikan meta-group tetap di kiri paling luar */
-                    <div
-                      style={`width: var(--doc-img-size); height: 1px; margin-right: 1rem; flex-shrink: 0;`}
-                    />
+                    <svg
+                      class="doc-thumbnail"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z"
+                        stroke="rgb(var(--gray))"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M14 2V8H20"
+                        stroke="rgb(var(--gray))"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M16 13H8"
+                        stroke="rgb(var(--gray))"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M16 17H8"
+                        stroke="rgb(var(--gray))"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M10 9H8"
+                        stroke="rgb(var(--gray))"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
                   )}
 
                   <div class="meta-group">
@@ -203,7 +231,6 @@ const docs = (await getCollection("docs"))
                       </span>
                     )}
 
-                    {/* Menggunakan description dari frontmatter */}
                     <p class="description">{post.data.description}</p>
                   </div>
                 </a>

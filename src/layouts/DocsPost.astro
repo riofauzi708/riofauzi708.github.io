@@ -15,10 +15,34 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
   <head>
     <BaseHead title={title} description={description} />
     <style>
-      main {
-        padding: 2rem 1rem;
+      /* --- Variable Lokal dan Style Dasar --- */
+      :root {
+        --accent: #2337ff;
+        --accent-dark: #000d8a;
+        --gray: 96, 115, 159;
+        --gray-light: 245, 247, 250;
+        --black: 15, 18, 25;
+        --border-radius-md: 12px;
+        --transition-duration: 0.3s;
+        --box-shadow: 0 4px 12px rgba(var(--gray), 0.1);
+        --content-width: 720px;
+        --font-family-body: "Helvetica Neue", Arial, sans-serif;
       }
 
+      body {
+        font-family: var(--font-family-body);
+        color: rgb(var(--gray-dark));
+        line-height: 1.6;
+        background-color: #fff;
+      }
+
+      main {
+        padding: 2rem 1rem;
+        width: 100%;
+        margin: 0 auto;
+      }
+
+      /* --- Hero Image --- */
       .hero-image {
         max-width: 960px;
         margin: 0 auto 2rem;
@@ -27,18 +51,20 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
       .hero-image img {
         width: 100%;
         height: auto;
-        border-radius: 12px;
+        border-radius: var(--border-radius-md);
         display: block;
         box-shadow: var(--box-shadow);
       }
 
+      /* --- Kontainer Konten Markdown --- */
       .content {
-        max-width: 720px;
+        max-width: var(--content-width);
         margin: 0 auto;
-        color: rgb(var(--gray-dark));
-        line-height: 1.7;
+        padding: 0 1rem;
+        line-height: 1.7; /* Meningkatkan jarak antar baris */
       }
 
+      /* --- Judul & Meta --- */
       .title {
         text-align: center;
         margin-bottom: 2rem;
@@ -46,13 +72,15 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 
       .title h1 {
         margin: 0.25em 0 0.5em;
-        font-size: 2.25rem;
+        font-size: clamp(2rem, 5vw, 2.5rem);
         line-height: 1.2;
+        color: rgb(var(--black));
       }
 
       .date {
         font-size: 0.9rem;
         color: rgb(var(--gray));
+        margin-top: 0;
       }
 
       .last-updated-on {
@@ -61,12 +89,83 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
         color: rgb(var(--gray));
       }
 
+      /* --- Markdown Styling (Penting untuk Konsistensi) --- */
+      .content h2,
+      .content h3,
+      .content h4,
+      .content h5,
+      .content h6 {
+        color: rgb(var(--black));
+        margin-top: 2em;
+        margin-bottom: 0.5em;
+        line-height: 1.2;
+      }
+
+      .content h2 {
+        font-size: 2rem;
+      }
+
+      .content h3 {
+        font-size: 1.5rem;
+      }
+
+      .content p {
+        margin: 1em 0;
+      }
+
+      .content ul,
+      .content ol {
+        margin: 1em 0 1em 1.5em;
+      }
+
+      .content li {
+        margin-bottom: 0.5em;
+      }
+
+      /* Styling Blockquote */
+      .content blockquote {
+        font-style: italic;
+        border-left: 4px solid rgb(var(--accent));
+        padding-left: 1.25rem;
+        margin: 2em 0;
+        color: rgb(var(--gray));
+      }
+
+      /* Styling Code Blocks */
+      .content pre {
+        background-color: rgb(var(--gray-light));
+        border-radius: 8px;
+        padding: 1rem;
+        overflow-x: auto;
+        font-family: monospace;
+        font-size: 0.9em;
+        line-height: 1.4;
+        box-shadow: 0 2px 4px rgba(var(--black), 0.1);
+      }
+
+      .content :not(pre) > code {
+        background-color: rgb(var(--gray-light));
+        padding: 0.2em 0.4em;
+        border-radius: 4px;
+        font-family: monospace;
+        font-size: 0.9em;
+        line-height: 1;
+      }
+
+      /* Styling Gambar di Dalam Konten */
+      .content img {
+        max-width: 100%;
+        height: auto;
+        border-radius: var(--border-radius-md);
+        display: block;
+        margin: 2em auto;
+        box-shadow: var(--box-shadow);
+      }
+
+      /* --- Responsive --- */
       @media (max-width: 720px) {
-        .title h1 {
-          font-size: 1.5rem;
-        }
         .content {
-          padding: 0 1rem;
+          padding: 0;
         }
       }
     </style>

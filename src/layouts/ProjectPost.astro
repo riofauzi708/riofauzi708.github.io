@@ -3,6 +3,7 @@ import type { CollectionEntry } from "astro:content";
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import FormattedDate from "../components/FormattedDate.astro";
 
 type Props = CollectionEntry<"projects">["data"];
 
@@ -21,15 +22,44 @@ const {
 <html lang="en">
   <head>
     <BaseHead title={title} description={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {
+      heroImage && (
+        <meta property="og:image" content={Astro.url.origin + heroImage} />
+      )
+    }
+    <meta property="og:type" content="article" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {
+      heroImage && (
+        <meta name="twitter:image" content={Astro.url.origin + heroImage} />
+      )
+    }
+
     <style>
+      :root {
+        --font-family-body: "Inter", sans-serif;
+        --color-bg: #f9fafb;
+        --color-text: #111827;
+        --color-secondary-text: #4b5563;
+        --color-link: #3b82f6;
+        --color-link-hover: #1d4ed8;
+        --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.07);
+        --border-radius-lg: 1rem;
+        --border-radius-full: 9999px;
+      }
+
       * {
         box-sizing: border-box;
       }
 
       body {
-        font-family: "Inter", sans-serif;
-        background: #f9fafb;
-        color: #111827;
+        font-family: var(--font-family-body);
+        background: var(--color-bg);
+        color: var(--color-text);
         line-height: 1.6;
         margin: 0;
         padding: 0;
@@ -37,6 +67,24 @@ const {
 
       main {
         padding: 2rem 1.5rem;
+      }
+
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        margin-bottom: 2rem;
+        text-decoration: none;
+        color: var(--color-link);
+        font-weight: 600;
+        transition: color 0.2s ease;
+      }
+
+      .back-link:hover {
+        color: var(--color-link-hover);
+      }
+
+      .back-link svg {
+        margin-right: 0.5rem;
       }
 
       .hero-container {
@@ -51,15 +99,15 @@ const {
       .hero-image {
         flex: 1 1 50%;
         max-width: 600px;
-        border-radius: 16px;
+        border-radius: var(--border-radius-lg);
         overflow: hidden;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+        box-shadow: var(--shadow-md);
       }
 
       .hero-image img {
         width: 100%;
         display: block;
-        border-radius: 12px;
+        border-radius: var(--border-radius-lg);
         transition: transform 0.4s ease;
       }
 
@@ -79,9 +127,9 @@ const {
         line-height: 1.2;
       }
 
-      .project-details p {
+      .project-details p.description {
         font-size: 1.05rem;
-        color: #4b5563;
+        color: var(--color-secondary-text);
         margin-bottom: 1.5rem;
       }
 
@@ -99,24 +147,24 @@ const {
       }
 
       .tech-badge {
-        background-color: #2563eb;
+        background-color: var(--color-link-hover);
         color: white;
         padding: 0.35em 0.8em;
-        border-radius: 9999px;
+        border-radius: var(--border-radius-full);
         font-size: 0.85rem;
         font-weight: 600;
         transition: background-color 0.3s ease;
       }
 
       .tech-badge:hover {
-        background-color: #1d4ed8;
+        background-color: var(--color-link-hover);
       }
 
       .project-type {
         background: #ede9fe;
         color: #6d28d9;
         padding: 0.4em 0.9em;
-        border-radius: 9999px;
+        border-radius: var(--border-radius-full);
         font-weight: 600;
         display: inline-block;
         margin-top: 1rem;
@@ -132,8 +180,8 @@ const {
       .external-links a {
         display: inline-block;
         text-decoration: none;
-        color: #3b82f6;
-        border: 2px solid #3b82f6;
+        color: var(--color-link);
+        border: 2px solid var(--color-link);
         padding: 0.5em 1em;
         border-radius: 0.5rem;
         font-weight: 600;
@@ -141,8 +189,71 @@ const {
       }
 
       .external-links a:hover {
-        background-color: #3b82f6;
+        background-color: var(--color-link);
         color: white;
+      }
+
+      /* Styling untuk konten Markdown dari slot */
+      .content-body {
+        max-width: 720px;
+        margin: 3rem auto 5rem;
+        padding: 0 1rem;
+        font-size: 1.1rem;
+        color: #333;
+      }
+
+      .content-body h2,
+      .content-body h3,
+      .content-body h4 {
+        color: var(--color-text);
+        margin-top: 2em;
+        margin-bottom: 0.5em;
+        line-height: 1.2;
+      }
+
+      .content-body p {
+        margin-bottom: 1.5em;
+      }
+
+      .content-body ul,
+      .content-body ol {
+        margin: 1.5em 0 1.5em 1.5rem;
+      }
+
+      .content-body li {
+        margin-bottom: 0.5em;
+      }
+
+      .content-body blockquote {
+        border-left: 4px solid var(--color-link);
+        padding-left: 1.5rem;
+        margin: 2em 0;
+        font-style: italic;
+        color: #6b7280;
+      }
+
+      .content-body pre {
+        background: #f3f4f6;
+        padding: 1rem;
+        border-radius: 8px;
+        overflow-x: auto;
+        font-family: monospace;
+      }
+
+      .content-body :not(pre) > code {
+        background: #f3f4f6;
+        padding: 0.2em 0.4em;
+        border-radius: 4px;
+        font-family: monospace;
+      }
+
+      .content-body img {
+        max-width: 100%;
+        height: auto;
+        border-radius: var(--border-radius-lg);
+        margin: 2rem auto;
+        display: block;
+        box-shadow: var(--shadow-md);
       }
 
       @media (max-width: 768px) {
@@ -162,6 +273,10 @@ const {
         .external-links a {
           width: 100%;
           text-align: center;
+        }
+
+        .content-body {
+          padding: 0;
         }
       }
 
@@ -189,6 +304,22 @@ const {
   <body>
     <Header />
     <main>
+      <a href="/projects/" class="back-link">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M19 12H5M12 19l-7-7 7-7"></path>
+        </svg>
+        Kembali ke Proyek
+      </a>
       <article>
         <div class="hero-container">
           {
@@ -200,16 +331,13 @@ const {
           }
           <div class="project-details">
             <h1>{title}</h1>
-            <p>{description}</p>
+            <p class="description">{description}</p>
 
             <div class="meta">
               {
                 pubDate && (
                   <div>
-                    📅{" "}
-                    {pubDate instanceof Date
-                      ? pubDate.toLocaleDateString()
-                      : new Date(pubDate).toLocaleDateString()}
+                    📅 <FormattedDate date={pubDate} />
                   </div>
                 )
               }
@@ -231,31 +359,30 @@ const {
                     : "👥 Team Project"
                 }
               </div>
+            </div>
 
-              <div class="external-links">
-                {
-                  liveUrl && (
-                    <a href={liveUrl} target="_blank" rel="noopener noreferrer">
-                      🌐 Live Site
-                    </a>
-                  )
-                }
-                {
-                  sourceUrl && (
-                    <a
-                      href={sourceUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      💻 Source Code
-                    </a>
-                  )
-                }
-              </div>
+            <div class="external-links">
+              {
+                liveUrl && (
+                  <a href={liveUrl} target="_blank" rel="noopener noreferrer">
+                    🌐 Live Site
+                  </a>
+                )
+              }
+              {
+                sourceUrl && (
+                  <a href={sourceUrl} target="_blank" rel="noopener noreferrer">
+                    💻 Source Code
+                  </a>
+                )
+              }
             </div>
           </div>
         </div>
-        <slot />
+
+        <div class="content-body">
+          <slot />
+        </div>
       </article>
     </main>
     <Footer />
