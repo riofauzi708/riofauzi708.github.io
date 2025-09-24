@@ -1,16 +1,179 @@
 ---
-title: 'First post'
-description: 'Lorem ipsum dolor sit amet'
-pubDate: 'Jul 08 2022'
-heroImage: '/blog-placeholder-3.jpg'
+title: Indonesia Flat Shipping Rates
+description: Average flat shipping cost and estimated delivery times per
+  province in Indonesia.
+pubDate: Jul 08 2022
+heroImage: /images/uploads/bendera-2025-3.jpg
+tags:
+  - shipping
+  - data
+draft: false
 ---
+# Indonesia Flat Shipping Rates
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
+Average flat-rate shipping costs and estimated delivery times (days) by province.
 
-Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc. Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra massa massa ultricies mi.
+## Aceh
 
-Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
+* **IDR 160,000** — 9–11 days  
+* **IDR 82,000** — 4–7 days  
 
-Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id cursus metus aliquam eleifend mi.
+## Bali
 
-Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
+* **IDR 70,000** — 5–7 days  
+* **IDR 35,000** — 3–5 days  
+
+## Bangka Belitung
+
+* **IDR 110,000** — 14–20 days  
+* **IDR 44,000** — 3–5 days  
+
+## Banten
+
+* **IDR 60,000** — 4–5 days  
+* **IDR 31,000** — 1–2 days  
+
+## Bengkulu
+
+* **IDR 125,000** — 7–8 days  
+* **IDR 46,000** — 4–6 days  
+
+## Kalimantan Tengah
+
+* **IDR 165,000** — 14–20 days  
+* **IDR 63,000** — 3–5 days  
+
+## Sulawesi Tengah
+
+* **IDR 260,000** — 14–20 days  
+* **IDR 89,000** — 4–7 days  
+
+## Kalimantan Timur
+
+* **IDR 175,000** — 14–20 days  
+* **IDR 62,000** — 3–5 days  
+
+## Nusa Tenggara Timur (NTT)
+
+* **IDR 160,000** — 14–20 days  
+* **IDR 90,000** — 4–7 days  
+
+## Gorontalo
+
+* **IDR 350,000** — 14–20 days  
+* **IDR 90,000** — 4–7 days  
+
+## Jakarta
+
+* **IDR 55,000** — 3–4 days  
+* **IDR 32,000** — 1–2 days  
+
+## Jambi
+
+* **IDR 125,000** — 6–7 days  
+* **IDR 39,000** — 3–5 days  
+
+## Jawa Barat
+
+* **IDR 55,000** — 4–5 days  
+* **IDR 29,000** — 1–2 days  
+
+## Jawa Tengah
+
+* **IDR 50,000** — 3–4 days  
+* **IDR 14,000** — 1–2 days  
+
+## Jawa Timur
+
+* **IDR 55,000** — 4–5 days  
+* **IDR 26,000** — 1–2 days  
+
+## Lampung
+
+* **IDR 125,000** — 5–6 days  
+* **IDR 37,000** — 3–5 days  
+
+## Maluku
+
+* **IDR 335,000** — 18–29 days  
+* **IDR 108,000** — 4–7 days  
+
+## Kalimantan Utara
+
+* **IDR 200,000** — 14–20 days  
+* **IDR 79,000** — 4–7 days  
+
+## Maluku Utara
+
+* **IDR 490,000** — 18–29 days  
+* **IDR 111,000** — 4–7 days  
+
+## Sulawesi Utara
+
+* **IDR 365,000** — 15–21 days  
+* **IDR 90,000** — 5–7 days  
+
+## Sumatra Utara
+
+* **IDR 150,000** — 9–10 days  
+* **IDR 56,000** — 5–7 days  
+
+## Papua
+
+* **IDR 250,000** — 24–34 days  
+* **IDR 156,000** — 5–7 days  
+
+## Riau
+
+* **IDR 125,000** — 8–10 days  
+* **IDR 50,000** — 3–5 days  
+
+## Kepulauan Riau
+
+* **IDR 125,000** — 14–20 days  
+* **IDR 50,000** — 3–5 days  
+
+## Kalimantan Selatan
+
+* **IDR 130,000** — 14–20 days  
+* **IDR 50,000** — 4–6 days  
+
+## Sulawesi Selatan
+
+* **IDR 190,000** — 14–20 days  
+* **IDR 62,000** — 4–6 days  
+
+## Sumatera Selatan
+
+* **IDR 75,000** — 4–6 days  
+* **IDR 35,000** — 3–5 days  
+
+## Sulawesi Tenggara
+
+* **IDR 310,000** — 14–20 days  
+* **IDR 87,000** — 4–6 days  
+
+## Kalimantan Barat
+
+* **IDR 155,000** — 14–20 days  
+* **IDR 56,000** — 4–6 days  
+
+## Nusa Tenggara Barat (NTB)
+
+* **IDR 125,000** — 8–10 days  
+* **IDR 47,000** — 4–6 days  
+
+## Papua Barat
+
+* **IDR 340,000** — 24–34 days  
+* **IDR 193,000** — 5–7 days  
+
+## Sumatera Barat
+
+* **IDR 125,000** — 8–9 days  
+* **IDR 49,000** — 4–6 days  
+
+## Yogyakarta
+
+* **IDR 45,000** — 4–6 days  
+* **IDR 12,000** — 1–2 days
