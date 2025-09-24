@@ -1,6 +1,8 @@
 ---
 title: My Simple Astro Project
-description: A cool portfolio built with Astro
+description: A clean and lightning-fast portfolio built with Astro. It
+  highlights my projects with a modern, minimalist design, smooth animations,
+  and excellent SEO so visitors get a seamless experience on any device.
 pubDate: 2024-10-15
 heroImage: /blog-placeholder-1.jpg
 projectType: Personal
