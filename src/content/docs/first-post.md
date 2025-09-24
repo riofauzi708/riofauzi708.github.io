@@ -7,7 +7,7 @@ heroImage: /images/uploads/bendera-2025-3.jpg
 tags:
   - shipping
   - data
-draft: false
+draft: true
 ---
 # Indonesia Flat Shipping Rates
 
