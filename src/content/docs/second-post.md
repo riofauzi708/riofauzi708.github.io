@@ -1,16 +1,52 @@
 ---
-title: 'Second post'
-description: 'Lorem ipsum dolor sit amet'
-pubDate: 'Jul 15 2022'
-heroImage: '/blog-placeholder-4.jpg'
+title: Video Content Strategy
+description: Plan for short-form and long-form video to build brand awareness,
+  reach new audiences, and strengthen digital presence.
+pubDate: Jul 15 2022
+heroImage: /images/uploads/2148854887.jpg
+tags:
+  - strategy
+  - content
+  - youtube
+draft: false
 ---
+## Short
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
+Fast-paced, informative, no filler.  
 
-Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc. Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra massa massa ultricies mi.
+* Fokus: produk atau proses produksi real-time  
+* Highlight: detail teknis  
+* Durasi: **maks. 3 menit**  
+* Frekuensi: **3× per minggu**  
 
-Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
+## Video
 
-Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id cursus metus aliquam eleifend mi.
+Tutorial atau edukatif (cara menentukan/memilih, atau proyek relevan).  
 
-Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
+* Durasi: **7–15 menit**  
+* Frekuensi: **1× per minggu**  
+* Tujuan: menarik audiens baru dan memberi nilai edukasi
+
+## Konten
+
+* **Product Knowledge** – keunggulan ditunjukkan secara verbal dan aksi  
+* **Podcast Storytelling** – kisah di balik produk/brand  
+* **Fashion Video** – konsep cinematic dengan music scoring kuat
+
+## Brand Goals
+
+* Memperkuat **brand awareness** dan daya tarik visual  
+* Menjangkau audiens lebih luas  
+* Memperkuat positioning brand secara estetik  
+
+## Distribusi
+
+1. Embed di website  
+2. Potong untuk Instagram & TikTok  
+3. Kirim sebagai portofolio ke calon klien  
+4. Gunakan di email marketing atau presentasi
+
+## Kesimpulan
+
+Konten ini memperkuat **kepercayaan klien** lewat transparansi proses dan edukasi seputar custom garment. Dikemas sinematik untuk membangun citra brand yang **kuat dan emosional**.\
+Dengan pengelolaan serius, dua channel video ini dapat menjadi **tulang punggung digital presence** dan investasi jangka panjang yang **scalable** untuk brand.
