@@ -1,8 +1,16 @@
 ---
-title: "My Portfolio Project"
-description: "A cool portfolio built with Astro"
-heroImage: "/blog-placeholder-1.jpg"
+title: My Simple Astro Project
+description: A cool portfolio built with Astro
 pubDate: 2024-10-15
+heroImage: /blog-placeholder-1.jpg
+projectType: Personal
+platform: Website
+techStack:
+  - Astro
+  - Decap CMS
+  - Netlify
+liveUrl: https://rio-fauzi.netlify.app/
+draft: false
 ---
 
 
