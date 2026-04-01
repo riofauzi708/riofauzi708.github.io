@@ -12,9 +12,6 @@ tags:
   - Winbox
 draft: false
 ---
-# MIKROTIK PCQ SETUP - 90+ DEVICE KANTOR
-
-## \
 Prasyarat
 
 * Safe Mode **AKTIF** (gembok hijau)
@@ -22,12 +19,8 @@ Prasyarat
 * Sudah ada **Simple Queue Z-CATCHALL**
 * Queue type PCQ akan dibuat (pcq-download & pcq-upload)
 
-- - -
-
-## \
 STEP 1: BUAT QUEUE TYPE PCQ
 
-### \
 Buat Queue Type
 
 1. Masuk ke: `Queues → Queue Types`
@@ -44,8 +37,6 @@ Klik **OK**
 
 ![image-pcq-download-setup](/images/uploads/pcq-download.png)
 
-
-
 **Upload:**
 
 * Klik `+` lagi
@@ -58,9 +49,8 @@ Klik **OK**
 
 ![image-pcq-upload-setup](/images/uploads/pcq-upload.png)
 
-- - -
 
-## \
+
 STEP 2: MANGLE RULES
 
 ### A. Tandai Download Traffic
@@ -80,8 +70,6 @@ STEP 2: MANGLE RULES
 * New Packet Mark: `download-pcq`
 
 Klik **Apply → OK**
-
-
 
 ### B. Tandai Upload Traffic
 
@@ -103,12 +91,10 @@ Klik **Apply → OK**
 
 ![](/images/uploads/mangel.png)
 
-- - -
 
-## \
+
 STEP 3: QUEUE TREE PCQ
 
-### \
 Download Queue Tree
 
 1. Masuk ke: `Queues → Queue Tree`
@@ -129,7 +115,6 @@ Klik **Apply → OK**
 
 ![](/images/uploads/qtree-download.png)
 
-### \
 Upload Queue Tree
 
 1. Klik `+` lagi
@@ -149,9 +134,8 @@ Klik **Apply → OK**
 
 ![](/images/uploads/qtree-upload.png)
 
-- - -
 
-## \
+
 STEP 4: CATCH-ALL BACKUP (OPSIONAL)
 
 1. Masuk ke: `Queues → Simple Queues`
@@ -179,9 +163,8 @@ Klik **Apply → OK**
 
 ![](/images/uploads/simple-q.png)
 
-- - -
 
-## \
+
 VERIFIKASI
 
 Pastikan:
@@ -203,9 +186,8 @@ Pastikan:
   * CPU < 70%
   * Memory > 30MB
 
-- - -
 
-## \
+
 TESTING
 
 1. PC tanpa queue → speedtest → **10–30 Mbps**
@@ -216,9 +198,8 @@ TESTING
    * Klik kanan → Monitor
    * Bytes harus naik saat traffic
 
-- - -
 
-## \
+
 MONITORING RUTIN
 
 ### Harian (±2 menit)
@@ -233,9 +214,8 @@ MONITORING RUTIN
 
   * `System → Backup → Save`
 
-- - -
 
-## \
+
 DOKUMENTASI CEPAT
 
 * Router: RB2011UiAS-RM  
@@ -252,9 +232,8 @@ DOKUMENTASI CEPAT
 * Umum: 10–30 Mbps  
 * Ping: < 50 ms  
 
-- - -
 
-## \
+
 ROLLBACK DARURAT
 
 ### Disable PCQ
@@ -272,9 +251,8 @@ ROLLBACK DARURAT
 
 * Router akan reboot
 
-- - -
 
-## \
+
 NOTES PENTING
 
 * Safe Mode akan auto-rollback jika disconnect
@@ -286,9 +264,8 @@ NOTES PENTING
   * Cloud
   * USB
 
-- - -
 
-## \
+
 SELESAI
 
 Jika semua test OK:
