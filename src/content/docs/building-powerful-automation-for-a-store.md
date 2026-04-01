@@ -4,6 +4,7 @@ description: Dengan ecommerce automation, bisnis dapat mengurangi pekerjaan
   repetitif, meminimalkan kesalahan, dan memusatkan energi tim pada strategi
   pertumbuhan jangka panjang.
 pubDate: 2025-09-25T11:02:00.000+07:00
+heroImage: /images/uploads/ckyyctkm000057b9ge2hde98e.jpg
 tags:
   - shopify
   - automation
