@@ -12,126 +12,287 @@ tags:
   - Winbox
 draft: false
 ---
-\# MIKROTIK PCQ SETUP - 90+ DEVICE KANTOR
+# MIKROTIK PCQ SETUP - 90+ DEVICE KANTOR
 
-## PRASYARAT
+## \
+Prasyarat
 
-1. \[ ] Backup: System → Backup → Save
-2. \[ ] Safe Mode: Aktifkan (ikon gembok hijau)
-3. \[ ] PCQ Types: Queues → Queue Types → Pastikan ada pcq-download & pcq-upload
-4. \[ ] Info Network: WAN=ether1-wan, LAN subnet=192.168.45.0/24 (sesuaikan)
+* Safe Mode **AKTIF** (gembok hijau)
+* Backup sudah dilakukan
+* Sudah ada **Simple Queue Z-CATCHALL**
+* Queue type PCQ akan dibuat (pcq-download & pcq-upload)
 
-## STEP 1: HAPUS QUEUE LAMA
+- - -
 
-Queues → Simple Queues → Pilih "Z-CATCHALL*" → Remove → Yes
+## \
+STEP 1: BUAT QUEUE TYPE PCQ
 
-## STEP 2: MANGLE RULES
+### \
+Buat Queue Type
 
-### Download Mark
+1. Masuk ke: `Queues → Queue Types`
+2. Klik `+`
 
-IP → Firewall → Mangle → +
-  General: Chain=forward | In.Interface=ether1-wan | Dst.Address=192.168.45.0/24
-  Action: Action=mark-packet | New Packet Mark=download-pcq
-  Apply → OK
+**Download:**
 
-### Upload Mark
+* Name: `pcq-download`
+* Kind: `pcq`
+* PCQ Rate: `0` (unlimited)
+* PCQ Classifier: `dst-address`
 
-IP → Firewall → Mangle → +
-  General: Chain=forward | Out.Interface=ether1-wan | Src.Address=192.168.45.0/24
-  Action: Action=mark-packet | New Packet Mark=upload-pcq
-  Apply → OK
+Klik **OK**
 
-## STEP 3: QUEUE TREE PCQ
+![image-pcq-download-setup](/images/uploads/pcq-download.png)
 
-### Download Tree
 
-Queues → Queue Tree → +
 
-General: Name=PCQ-DOWNLOAD | Parent=global-out | Packet Marks=download-pcq
-  Limits: Max Limit=120M | Queue=pcq-download
-  Apply → OK
+**Upload:**
 
-### Upload Tree
+* Klik `+` lagi
+* Name: `pcq-upload`
+* Kind: `pcq`
+* PCQ Rate: `0`
+* PCQ Classifier: `src-address`
 
-Queues → Queue Tree → +
+Klik **OK**
 
-General: Name=PCQ-UPLOAD | Parent=global-in | Packet Marks=upload-pcq
-  Limits: Max Limit=30M | Queue=pcq-upload
-  Apply → OK
+![image-pcq-upload-setup](/images/uploads/pcq-upload.png)
 
-## STEP 4: CATCH-ALL BACKUP (Opsional)
+- - -
 
-Queues → Simple Queues → +
+## \
+STEP 2: MANGLE RULES
 
-General: Name=Z-CATCHALL-BACKUP | Target=192.168.45.0/24\
-  Limits: Max Limit=100M/100M\
-  Advanced: Priority=8\
-  Apply → OK → Pindah ke PALING BAWAH daftar
+### A. Tandai Download Traffic
 
-## VERIFIKASI
+1. Masuk ke: `IP → Firewall → Mangle`
+2. Klik `+`
 
-1. \[ ] Mangle: 2 rules (download-pcq, upload-pcq)
-2. \[ ] Queue Tree: 2 rules (PCQ-DOWNLOAD, PCQ-UPLOAD)
-3. \[ ] Simple Queues: Individual queues tetap ada + Z-CATCHALL di bawah
-4. \[ ] System → Resources: CPU <70%, Memory >30MB
+**General:**
 
-## TESTING
+* Chain: `forward`
+* In. Interface: `ether1-wan`
+* Dst. Address: `192.168.45.0/24`
 
-1. PC tanpa queue → speedtest.net → Harusnya 10-30 Mbps
-2. PC dengan queue → speedtest.net → Harusnya 5-10 Mbps (tetap)
-3. Test 2-3 device bersamaan → Semua dapat bandwidth wajar
-4. Monitor Queue Tree → Klik kanan → Monitor → Bytes naik saat traffic
+**Action:**
 
-## TROUBLESHOOTING CEPAT
+* Action: `mark-packet`
+* New Packet Mark: `download-pcq`
 
-❌ Speed = 0 Mbps:
-  → Cek Mangle: Interface & subnet sesuai?
-  → Cek Queue Tree: Packet Marks sama persis dengan Mangle?
-  → Cek Queue Types: pcq-download/upload Kind=pcq?
+Klik **Apply → OK**
 
-❌ CPU >80%:
-  → Kurangi connection timeout: IP → Firewall → Connection Tracking
-  → Hapus rule tidak perlu
-  → Pertimbangkan upgrade router
 
-❌ Device prioritas lemot:
-  → Pastikan individual queue POSISI DI ATAS PCQ/Catch-all
-  → Priority individual queue = 1 (lebih tinggi)
 
-## MONITORING RUTIN
+### B. Tandai Upload Traffic
 
-Harian (2 menit):\
-  → System → Resources: CPU & Memory ok?
-  → Tools → Torch: Cek top user saat komplain
+1. Masih di menu Mangle
+2. Klik `+`
 
-Mingguan (10 menit):\
-  → Speed test 3 device random
-  → Backup: System → Backup → Save ke laptop
+**General:**
 
-## DOKUMENTASI CEPAT
+* Chain: `forward`
+* Out. Interface: `ether1-wan`
+* Src. Address: `192.168.45.0/24`
 
-Router: RB2011UiAS-RM | ISP: IndiHome 150Mbps | Device: 88\
-PCQ Download: 120Mbps | PCQ Upload: 30Mbps\
-Individual Queues: 21 device @ 5-10Mbps\
-Catch-All: 100M backup (priority 8)\
-Baseline: Prioritas=5-10Mbps | Umum=10-30Mbps | Ping<50ms
+**Action:**
 
-## ROLLBACK DARURAT
+* Action: `mark-packet`
+* New Packet Mark: `upload-pcq`
 
-Disable PCQ:\
-  Queues → Queue Tree → Disable PCQ-DOWNLOAD & PCQ-UPLOAD
+Klik **Apply → OK**
 
-Restore Backup:\
-  System → Backup → Load file backup → Router reboot
+![](/images/uploads/mangel.png)
 
-## NOTES PENTING
+- - -
 
-* ⚠️ Safe Mode auto-rollback jika disconnect tanpa save
-* ⚠️ PCQ fair sharing: semakin banyak device aktif, semakin kecil jatah per IP
-* ⚠️ Individual queue tetap prioritas di atas PCQ
-* ⚠️ Simpan backup di 3 tempat: laptop, cloud, USB
+## \
+STEP 3: QUEUE TREE PCQ
 
-## SELESAI
+### \
+Download Queue Tree
 
-Jika semua test OK → Biarkan Safe Mode auto-save (tunggu 1-2 menit)\
-Monitor 24 jam pertama → Catat jika perlu adjust limit
+1. Masuk ke: `Queues → Queue Tree`
+2. Klik `+`
+
+**General:**
+
+* Name: `PCQ-DOWNLOAD`
+* Parent: `global-out` (atau `ether1-wan`)
+* Packet Marks: `download-pcq`
+
+**Limits:**
+
+* Max Limit: `120M`
+* Queue: `pcq-download`
+
+Klik **Apply → OK**
+
+![](/images/uploads/qtree-download.png)
+
+### \
+Upload Queue Tree
+
+1. Klik `+` lagi
+
+**General:**
+
+* Name: `PCQ-UPLOAD`
+* Parent: `global-in` (atau `ether1-wan`)
+* Packet Marks: `upload-pcq`
+
+**Limits:**
+
+* Max Limit: `30M`
+* Queue: `pcq-upload`
+
+Klik **Apply → OK**
+
+![](/images/uploads/qtree-upload.png)
+
+- - -
+
+## \
+STEP 4: CATCH-ALL BACKUP (OPSIONAL)
+
+1. Masuk ke: `Queues → Simple Queues`
+2. Klik `+`
+
+**General:**
+
+* Name: `Z-CATCHALL-BACKUP`
+* Target: `192.168.45.0/24`
+
+**Max Limit:**
+
+* Upload: `100M`
+* Download: `100M`
+
+**Advanced:**
+
+* Priority: `8`
+
+Klik **Apply → OK**
+
+➡️ Pindahkan ke **PALING BAWAH**
+
+![](/images/uploads/catchall.png)
+
+![](/images/uploads/simple-q.png)
+
+- - -
+
+## \
+VERIFIKASI
+
+Pastikan:
+
+* Mangle: 2 rules  
+
+  * `download-pcq`
+  * `upload-pcq`
+* Queue Tree: 2 rules  
+
+  * `PCQ-DOWNLOAD`
+  * `PCQ-UPLOAD`
+* Simple Queue:
+
+  * Queue individu tetap ada
+  * `Z-CATCHALL` di bawah
+* System:
+
+  * CPU < 70%
+  * Memory > 30MB
+
+- - -
+
+## \
+TESTING
+
+1. PC tanpa queue → speedtest → **10–30 Mbps**
+2. PC dengan queue → speedtest → **5–10 Mbps stabil**
+3. Test 2–3 device bersamaan → bandwidth terbagi rata
+4. Monitor Queue:
+
+   * Klik kanan → Monitor
+   * Bytes harus naik saat traffic
+
+- - -
+
+## \
+MONITORING RUTIN
+
+### Harian (±2 menit)
+
+* `System → Resources` → cek CPU & RAM
+* `Tools → Torch` → cek user paling berat
+
+### Mingguan (±10 menit)
+
+* Speed test 3 device acak
+* Backup:
+
+  * `System → Backup → Save`
+
+- - -
+
+## \
+DOKUMENTASI CEPAT
+
+* Router: RB2011UiAS-RM  
+* ISP: IndiHome 150 Mbps  
+* Total Device: 88  
+* Individual Queue: 21 device @ 5–10 Mbps  
+* PCQ Download: 120 Mbps  
+* PCQ Upload: 30 Mbps  
+* Catch-All: 100 Mbps (priority 8)
+
+**Baseline:**
+
+* Prioritas: 5–10 Mbps  
+* Umum: 10–30 Mbps  
+* Ping: < 50 ms  
+
+- - -
+
+## \
+ROLLBACK DARURAT
+
+### Disable PCQ
+
+`Queues → Queue Tree`
+
+* Disable:
+
+  * `PCQ-DOWNLOAD`
+  * `PCQ-UPLOAD`
+
+### Restore Backup
+
+`System → Backup → Load`
+
+* Router akan reboot
+
+- - -
+
+## \
+NOTES PENTING
+
+* Safe Mode akan auto-rollback jika disconnect
+* PCQ = fair sharing (semakin banyak user, bandwidth terbagi)
+* Queue individu tetap prioritas
+* Simpan backup di:
+
+  * Laptop
+  * Cloud
+  * USB
+
+- - -
+
+## \
+SELESAI
+
+Jika semua test OK:
+
+* Tunggu 1–2 menit (Safe Mode auto-save)
+* Monitor 24 jam pertama
+* Adjust limit jika diperlukan
