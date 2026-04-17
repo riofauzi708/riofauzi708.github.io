@@ -1,5 +1,5 @@
 ---
-title: DOKUMENTASI ADVANCED BANDWIDTH CONTROL (QUEUE TREE + PRIORITAS TRAFFIC)
+title: Dokumentasi Advanced Bandwidth Control (Q Tree + Prioritas Traffic)
 description: >-
   Sekarang kamu sudah masuk ke level yang biasanya dipakai di kantor yang
   benar-benar serius ngatur jaringan.
