@@ -1,5 +1,5 @@
 ---
-title: 🚑 Solusi Recovery Akun dari Algoritma Freeze
+title: Solusi Recovery Akun dari Algoritma Freeze
 description: Ini bukan teori doang, tapi strategi yang sudah dipakai creator
   Youtube Shorts sukses untuk "ngeluarin akun dari lubang hitam."
 pubDate: 2025-09-25T10:49:00.000+07:00
