@@ -1,8 +1,8 @@
 ---
-title: 📘 Dokumentasi Lengkap Setup PCQ Global Mikrotik (Step by Step)
+title: 📘 Dokumentasi Lengkap Setup PCQ Global Mikrotik
 description: Berikut dokumentasi yang operasional dan step-by-step dari nol jadi
   nanti kalau kamu buka lagi, kamu langsung tahu mulai dari mana tanpa mikir
-  ulang.
+  ulang masalah seperti ini.
 pubDate: 2026-04-17T13:52:00.000+07:00
 updatedDate: 2026-04-17T13:52:00.000+07:00
 heroImage: /images/uploads/pcq-global.jpg
@@ -11,14 +11,14 @@ tags:
   - Mikrotik
 draft: false
 ---
-## 🧩 1. KONDISI AWAL (MASALAH YANG TERJADI)
+## 1. KONDISI AWAL (MASALAH YANG TERJADI)
 
 Jaringan digunakan oleh:
 
 * ±100 device (PC + HP + laptop + magang)
 * Internet: Indihome 150 Mbps (tidak stabil)
 
-### ❗ Gejala yang muncul:
+### Gejala yang muncul:
 
 * Awalnya normal saat ±80 device
 * Setelah tambah ±20 device → langsung terasa lemot
@@ -29,9 +29,9 @@ Jaringan digunakan oleh:
   * YouTube buffering
   * speedtest bahkan tidak jalan
 
-## 🔍 ANALISIS MASALAH
+## ANALISIS MASALAH
 
-### ❗ 1. Bandwidth tidak benar-benar 150 Mbps stabil
+### 1. Bandwidth tidak benar-benar 150 Mbps stabil
 
 Hasil test:
 
@@ -42,9 +42,9 @@ Artinya:
 * ISP fluktuatif (jam sibuk turun)
 * kemungkinan bottleneck di WiFi / sharing
 
-👉 Jadi **150 Mbps ≠ selalu tersedia**
+Jadi **150 Mbps ≠ selalu tersedia**
 
-### ❗ 2. Terlalu banyak Simple Queue per device
+### 2. Terlalu banyak Simple Queue per device
 
 Sebelumnya:
 
@@ -56,23 +56,23 @@ Masalahnya:
 * Router kerja berat
 * Saat banyak user aktif → rebutan
 
-👉 Sistem ini **tidak cocok untuk 100 device**
+Sistem ini **tidak cocok untuk 100 device**
 
-### ❗ 3. Tidak ada pembagian bandwidth yang adil
+### 3. Tidak ada pembagian bandwidth yang adil
 
 Yang terjadi:
 
 * Beberapa user bisa makan bandwidth besar
 * Yang lain jadi lemot
 
-## 🎯 TUJUAN SOLUSI
+## TUJUAN SOLUSI
 
 * Semua device tetap bisa internet
 * Tidak ada yang “nyedot sendiri”
 * Jaringan stabil walaupun banyak user
 * Tidak chaos saat jam sibuk
 
-## 🚀 SOLUSI: MENGGUNAKAN PCQ (GLOBAL)
+## SOLUSI: MENGGUNAKAN PCQ (GLOBAL)
 
 Pendekatan:
 
@@ -80,36 +80,36 @@ Pendekatan:
 * bandwidth dibagi otomatis
 * setiap device ada batas maksimal
 
-## 🧩 2. STEP BY STEP SETUP
+## 2. STEP BY STEP SETUP
 
-### 🔹 STEP 1 — Tentukan Bandwidth Realistis
+### STEP 1 — Tentukan Bandwidth Realistis
 
 Berdasarkan test:
 
 * Download aman: `100 Mbps`
 * Upload estimasi: `20 Mbps`
 
-👉 Ini sengaja diturunkan dari 150 Mbps
-👉 agar tidak over-limit saat ISP drop
+Ini sengaja diturunkan dari 150 Mbps
+agar tidak over-limit saat ISP drop
 
-### 🔹 STEP 2 — Buat Queue Type (PCQ)
+### STEP 2 — Buat Queue Type (PCQ)
 
 Masuk:
 **Queues → Queue Types**
 
-#### 📥 pcq-download
+#### pcq-download
 
 * Kind: `pcq`
 * Rate: `3M`
 * Classifier: `dst-address`
 
-#### 📤 pcq-upload
+#### pcq-upload
 
 * Kind: `pcq`
 * Rate: `2M`
 * Classifier: `src-address`
 
-### 🔹 STEP 3 — Buat GLOBAL-PCQ
+### STEP 3 — Buat GLOBAL-PCQ
 
 Masuk:
 **Queues → Simple Queue → Add**
@@ -132,7 +132,7 @@ Masuk:
 * Priority: `8`
 * Parent: `none`
 
-### 🔹 STEP 4 — Disable FastTrack (WAJIB)
+### STEP 4 — Disable FastTrack (WAJIB)
 
 Masuk:
 **IP → Firewall → Filter Rules**
@@ -147,12 +147,12 @@ FastTrack akan:
 * melewati queue
 * membuat PCQ tidak bekerja
 
-### 🔹 STEP 5 — Aktifkan GLOBAL-PCQ
+### STEP 5 — Aktifkan GLOBAL-PCQ
 
 * Enable queue
 * Pastikan tidak ada queue lama aktif
 
-## 🎯 HASIL SETELAH IMPLEMENTASI
+## HASIL SETELAH IMPLEMENTASI
 
 * Setiap device mendapat:
 
@@ -165,16 +165,14 @@ FastTrack akan:
 * Tidak ada lemot parah
 * Semua device tetap bisa akses internet
 
-
-
-## 🧩 1. KONDISI AWAL (MASALAH YANG TERJADI)
+## 1. KONDISI AWAL (MASALAH YANG TERJADI)
 
 Jaringan digunakan oleh:
 
 * ±100 device (PC + HP + laptop + magang)
 * Internet: Indihome 150 Mbps (tidak stabil)
 
-### ❗ Gejala yang muncul:
+### Gejala yang muncul:
 
 * Awalnya normal saat ±80 device
 * Setelah tambah ±20 device → langsung terasa lemot
@@ -185,9 +183,9 @@ Jaringan digunakan oleh:
   * YouTube buffering
   * speedtest bahkan tidak jalan
 
-## 🔍 ANALISIS MASALAH
+## ANALISIS MASALAH
 
-### ❗ 1. Bandwidth tidak benar-benar 150 Mbps stabil
+### 1. Bandwidth tidak benar-benar 150 Mbps stabil
 
 Hasil test:
 
@@ -198,9 +196,9 @@ Artinya:
 * ISP fluktuatif (jam sibuk turun)
 * kemungkinan bottleneck di WiFi / sharing
 
-👉 Jadi **150 Mbps ≠ selalu tersedia**
+Jadi **150 Mbps ≠ selalu tersedia**
 
-### ❗ 2. Terlalu banyak Simple Queue per device
+### 2. Terlalu banyak Simple Queue per device
 
 Sebelumnya:
 
@@ -212,23 +210,23 @@ Masalahnya:
 * Router kerja berat
 * Saat banyak user aktif → rebutan
 
-👉 Sistem ini **tidak cocok untuk 100 device**
+Sistem ini **tidak cocok untuk 100 device**
 
-### ❗ 3. Tidak ada pembagian bandwidth yang adil
+### 3. Tidak ada pembagian bandwidth yang adil
 
 Yang terjadi:
 
 * Beberapa user bisa makan bandwidth besar
 * Yang lain jadi lemot
 
-## 🎯 TUJUAN SOLUSI
+## TUJUAN SOLUSI
 
 * Semua device tetap bisa internet
 * Tidak ada yang “nyedot sendiri”
 * Jaringan stabil walaupun banyak user
 * Tidak chaos saat jam sibuk
 
-## 🚀 SOLUSI: MENGGUNAKAN PCQ (GLOBAL)
+## SOLUSI: MENGGUNAKAN PCQ (GLOBAL)
 
 Pendekatan:
 
@@ -236,34 +234,34 @@ Pendekatan:
 * bandwidth dibagi otomatis
 * setiap device ada batas maksimal
 
-## 🧩 2. STEP BY STEP SETUP
+## 2. STEP BY STEP SETUP
 
-### 🔹 STEP 1 — Tentukan Bandwidth Realistis
+### STEP 1 — Tentukan Bandwidth Realistis
 
 Berdasarkan test:
 
 * Download aman: `100 Mbps`
 * Upload estimasi: `20 Mbps`
 
-👉 Ini sengaja diturunkan dari 150 Mbps👉 agar tidak over-limit saat ISP drop
+Ini sengaja diturunkan dari 150 Mbps agar tidak over-limit saat ISP drop
 
-### 🔹 STEP 2 — Buat Queue Type (PCQ)
+### STEP 2 — Buat Queue Type (PCQ)
 
 Masuk:**Queues → Queue Types**
 
-#### 📥 pcq-download
+#### pcq-download
 
 * Kind: `pcq`
 * Rate: `3M`
 * Classifier: `dst-address`
 
-#### 📤 pcq-upload
+#### pcq-upload
 
 * Kind: `pcq`
 * Rate: `2M`
 * Classifier: `src-address`
 
-### 🔹 STEP 3 — Buat GLOBAL-PCQ
+### STEP 3 — Buat GLOBAL-PCQ
 
 Masuk:**Queues → Simple Queue → Add**
 
@@ -285,7 +283,7 @@ Masuk:**Queues → Simple Queue → Add**
 * Priority: `8`
 * Parent: `none`
 
-### 🔹 STEP 4 — Disable FastTrack (WAJIB)
+### STEP 4 — Disable FastTrack (WAJIB)
 
 Masuk:**IP → Firewall → Filter Rules**
 
@@ -299,12 +297,12 @@ FastTrack akan:
 * melewati queue
 * membuat PCQ tidak bekerja
 
-### 🔹 STEP 5 — Aktifkan GLOBAL-PCQ
+### STEP 5 — Aktifkan GLOBAL-PCQ
 
 * Enable queue
 * Pastikan tidak ada queue lama aktif
 
-## 🎯 HASIL SETELAH IMPLEMENTASI
+## HASIL SETELAH IMPLEMENTASI
 
 * Setiap device mendapat:
 
@@ -317,25 +315,25 @@ FastTrack akan:
 * Tidak ada lemot parah
 * Semua device tetap bisa akses internet
 
-## ⚠️ HAL YANG PERLU DIPAHAMI
+## HAL YANG PERLU DIPAHAMI
 
-### ❗ Kenapa tidak kencang?
+### Kenapa tidak kencang?
 
 Karena:
 
 * 100 device berbagi bandwidth yang sama
 * bandwidth real terbatas
 
-👉 Ini bukan untuk “cepat”, tapi untuk “stabil”
+Ini bukan untuk “cepat”, tapi untuk “stabil”
 
-### ❗ Kenapa dibatasi per device?
+### Kenapa dibatasi per device?
 
 Agar:
 
 * tidak ada 1 user menghabiskan bandwidth
 * semua tetap kebagian
 
-## 🧠 ANALOGI SEDERHANA
+## ANALOGI SEDERHANA
 
 * Internet = jalan
 * Device = mobil
@@ -346,30 +344,30 @@ Kalau:
 * jalan sempit
 * tidak diatur
 
-👉 macet total
+macet total
 
-PCQ:👉 membagi jalur agar semua tetap jalan
+PCQ: membagi jalur agar semua tetap jalan
 
-## 🚀 PENGEMBANGAN SELANJUTNYA
+## PENGEMBANGAN SELANJUTNYA
 
 Setelah ini stabil, bisa upgrade:
 
-### 🔹 1. Prioritas User
+### 1. Prioritas User
 
 * PC kantor → lebih cepat
 * HP / magang → dibatasi
 
-### 🔹 2. Pembatasan Aplikasi
+### 2. Pembatasan Aplikasi
 
 * Limit YouTube / TikTok
 * Prioritaskan Zoom / kerja
 
-### 🔹 3. Segmentasi Jaringan
+### 3. Segmentasi Jaringan
 
 * VLAN
 * Subnet terpisah
 
-## 🎯 KESIMPULAN
+## KESIMPULAN
 
 Masalah utama:
 
@@ -383,11 +381,11 @@ Solusi:
 * Batasi per user
 * Fokus ke stabilitas
 
-## 🧠 PRINSIP UTAMA
+## PRINSIP UTAMA
 
 > Lebih baik semua bisa internet (stabil)daripada beberapa cepat tapi yang lain mati
 
-## ✅ STATUS
+## STATUS
 
 IMPLEMENTASI BERHASILJaringan sudah:
 
@@ -397,25 +395,25 @@ IMPLEMENTASI BERHASILJaringan sudah:
 
 ![proses pcq global](/images/uploads/pcq-global-2-optimized.webp)
 
-## ⚠️ HAL YANG PERLU DIPAHAMI
+## HAL YANG PERLU DIPAHAMI
 
-### ❗ Kenapa tidak kencang?
+### Kenapa tidak kencang?
 
 Karena:
 
 * 100 device berbagi bandwidth yang sama
 * bandwidth real terbatas
 
-👉 Ini bukan untuk “cepat”, tapi untuk “stabil”
+Ini bukan untuk “cepat”, tapi untuk “stabil”
 
-### ❗ Kenapa dibatasi per device?
+### Kenapa dibatasi per device?
 
 Agar:
 
 * tidak ada 1 user menghabiskan bandwidth
 * semua tetap kebagian
 
-## 🧠 ANALOGI SEDERHANA
+## ANALOGI SEDERHANA
 
 * Internet = jalan
 * Device = mobil
@@ -426,31 +424,31 @@ Kalau:
 * jalan sempit
 * tidak diatur
 
-👉 macet total
+macet total
 
 PCQ:
-👉 membagi jalur agar semua tetap jalan
+membagi jalur agar semua tetap jalan
 
-## 🚀 PENGEMBANGAN SELANJUTNYA
+## PENGEMBANGAN SELANJUTNYA
 
 Setelah ini stabil, bisa upgrade:
 
-### 🔹 1. Prioritas User
+### 1. Prioritas User
 
 * PC kantor → lebih cepat
 * HP / magang → dibatasi
 
-### 🔹 2. Pembatasan Aplikasi
+### 2. Pembatasan Aplikasi
 
 * Limit YouTube / TikTok
 * Prioritaskan Zoom / kerja
 
-### 🔹 3. Segmentasi Jaringan
+### 3. Segmentasi Jaringan
 
 * VLAN
 * Subnet terpisah
 
-## 🎯 KESIMPULAN
+## KESIMPULAN
 
 Masalah utama:
 
@@ -464,12 +462,12 @@ Solusi:
 * Batasi per user
 * Fokus ke stabilitas
 
-## 🧠 PRINSIP UTAMA
+## PRINSIP UTAMA
 
 > Lebih baik semua bisa internet (stabil)
 > daripada beberapa cepat tapi yang lain mati
 
-## ✅ STATUS
+## STATUS
 
 IMPLEMENTASI BERHASIL
 Jaringan sudah:
