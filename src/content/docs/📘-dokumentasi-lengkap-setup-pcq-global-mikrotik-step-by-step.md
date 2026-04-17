@@ -1,5 +1,5 @@
 ---
-title: 📘 DOKUMENTASI LENGKAP SETUP PCQ GLOBAL MIKROTIK (STEP BY STEP)
+title: 📘 Dokumentasi Lengkap Setup PCQ Global Mikrotik (Step by Step)
 description: Berikut dokumentasi yang operasional dan step-by-step dari nol jadi
   nanti kalau kamu buka lagi, kamu langsung tahu mulai dari mana tanpa mikir
   ulang.
